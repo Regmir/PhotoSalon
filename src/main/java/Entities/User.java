@@ -10,9 +10,10 @@ import java.util.List;
 public class User implements Serializable {
 
     List<Order> orders;
-    HashMap<String, String> params;//хранение параметров личного кабинета и т д
+    private HashMap<String, String> params;//хранение параметров личного кабинета и т д
 
     public User(String name, String password, String email, String admin){
+        params = new HashMap<String, String>();
         this.params.put("name",name);
         this.params.put("password",password);
         this.params.put("email",email);
