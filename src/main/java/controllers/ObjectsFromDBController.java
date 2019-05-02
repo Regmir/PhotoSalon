@@ -70,19 +70,12 @@ public class ObjectsFromDBController {
 
     @RequestMapping("/login")
     public String login( Model model){
-        return "redirect:/login";
+        return "login";
     }
 
     @RequestMapping("/register")
     public String register( Model model){
-        return "redirect:/register";
+        return "register";
     }
-
-    @RequestMapping(value = "/perceptron/add", method = RequestMethod.POST)
-    public String addPerceptron(@RequestParam ("neurons") Integer[] neurons,
-                                @RequestParam ("func") String[] func,
-                                @RequestParam ("name") String name, Model model){
-        //someCode
-        return "redirect:/showPerceptron";
-    }
+    
 }
