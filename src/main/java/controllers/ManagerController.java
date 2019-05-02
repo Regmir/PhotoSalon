@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class ObjectsFromDBController {
+public class ManagerController {
     private ObjectService objectService;
 
     @Autowired(required = true)
@@ -35,47 +35,14 @@ public class ObjectsFromDBController {
 
     @RequestMapping(value = "/objects/add", method = RequestMethod.POST)
     public String addObj(@ModelAttribute("obj") ObjectFromDB obj){
-            this.objectService.addObject(obj);
+        this.objectService.addObject(obj);
         return "redirect:/objects";
     }
 
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public String addUser(@RequestParam ("name") String name,
-                          @RequestParam ("pass") String pass,
-                          @RequestParam ("secret") String secret,
-                          @RequestParam ("email") String email, Model model){
-        if (secret.equals("admin"))
-            secret="yes";
-        else
-            secret="no";
-        User user = new User(name,pass,email,secret);
-        ObjectFromDB obj = user.prepareObjectFromDB();
-        this.objectService.addObject(obj);
-        return "redirect:/";
-    }
+    @RequestMapping(value = "/manager/salons/show", method = RequestMethod.GET)
+    public String showSalons(Model model){
 
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public String login(@RequestParam ("name") String name,
-                          @RequestParam ("pass") String pass, Model model){
-        ObjectFromDB obj = this.objectService.getObject(name,"user");
-        if (obj!=null){
-            User user = User.parseUser(obj);
-            if (user.authentificate(pass)) {
-                if (user.isadmin()) return  "redirect:/adminMainPage";
-                else return "redirect:/userMainPage";
-            }
-        }
-        return "redirect:/authentificationFailed";
-    }
-
-    @RequestMapping("/login")
-    public String login( Model model){
-        return "redirect:/login";
-    }
-
-    @RequestMapping("/register")
-    public String register( Model model){
-        return "redirect:/register";
+        return "redirect:/showSalonsForManager";
     }
 
     @RequestMapping(value = "/perceptron/add", method = RequestMethod.POST)
