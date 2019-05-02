@@ -26,30 +26,10 @@ public class ManagerController {
         this.objectService = objectService;
     }
 
-    @RequestMapping(value = "objects", method = RequestMethod.GET)
-    public String listObjects(Model model){
-        model.addAttribute("obj", new ObjectFromDB());
-        model.addAttribute("listObjects", this.objectService.getAll());
-        return "objects";
-    }
-
-    @RequestMapping(value = "/objects/add", method = RequestMethod.POST)
-    public String addObj(@ModelAttribute("obj") ObjectFromDB obj){
-        this.objectService.addObject(obj);
-        return "redirect:/objects";
-    }
-
     @RequestMapping(value = "/manager/salons/show", method = RequestMethod.GET)
     public String showSalons(Model model){
 
         return "redirect:/showSalonsForManager";
     }
-
-    @RequestMapping(value = "/perceptron/add", method = RequestMethod.POST)
-    public String addPerceptron(@RequestParam ("neurons") Integer[] neurons,
-                                @RequestParam ("func") String[] func,
-                                @RequestParam ("name") String name, Model model){
-        //someCode
-        return "redirect:/showPerceptron";
-    }
+    
 }
