@@ -53,7 +53,7 @@
 <br/>
 <table class="table information_json">
   <th><a href="<c:url value="/createLearn"/>" target="_blank">Обучить решатель</a></th>
-  <th><a href="<c:url value="/result"/>" target="_blank">Результаты обучения</a></th>
+  <th><a href="<c:url value="/objects"/>" target="_blank">Все объекты с бд</a></th>
 </table>
 <br/>
 </body>
