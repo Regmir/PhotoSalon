@@ -22,9 +22,9 @@
 <br/>
 <form method="POST" action="<c:url value="/user/login"/>">
 <table class="table information_json">
-    <tr><th>Имя пользователя</th><td></td><td><input type="text" class="form-control" name="register.jsp" placeholder="Имя пользователя"></td></tr>
+    <tr><th>Имя пользователя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя пользователя"></td></tr>
     <tr><th>Пароль</th><td></td><td><input type="password" class="form-control" name="pass" placeholder="Пароль"></td></tr>
-    <tr><th><input type="submit" class="form-control" value="<spring:message text="Войти"/>"></th></tr>
+    <tr><th><input type="submit" class="form-control" value="Войти"></th></tr>
 </table>
 </form>
 <br/>

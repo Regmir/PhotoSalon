@@ -22,11 +22,11 @@
 <br/>
 <form method="POST" action="<c:url value="/user/add"/>">
 <table class="table information_json">
-    <tr><th>Имя пользователя</th><td></td><td><input type="text" class="form-control" name="register.jsp" placeholder="Имя пользователя"></td></tr>
+    <tr><th>Имя пользователя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя пользователя"></td></tr>
     <tr><th>Пароль</th><td></td><td><input type="password" class="form-control" name="pass" placeholder="Пароль"></td></tr>
     <tr><th>Электронная почта</th><td></td><td><input type="text" class="form-control" name="email" placeholder="Электронная почта"></td></tr>
     <tr><th>Секретное слово*</th><td></td><td><input type="password" class="form-control" name="secret" placeholder="Слово"></td></tr>
-    <tr><th><input type="submit" class="form-control" value="<spring:message text="Зарегистрироваться"/>"></th></tr>
+    <tr><th><input type="submit" class="form-control" value="Зарегистрироваться"></th></tr>
 </table>
 </form>
 <br/>
