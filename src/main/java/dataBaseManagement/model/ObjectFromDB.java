@@ -6,7 +6,7 @@ import java.util.Arrays;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "objects", schema = "public", catalog = "postgres")
+@Table(name = "objects", schema = "public")
 public class ObjectFromDB {
     @Id
     @Column(name = "id")
