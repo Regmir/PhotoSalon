@@ -4,27 +4,67 @@ import dataBaseManagement.model.ObjectFromDB;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Equipment implements Serializable {
-    String name;
-    String description;
-    EquipmentType equipmentType;
-    List<Offer> offers;//это класс конкретного оборудования уже с четким набором услуг в этом списке
+    private String name;
+    private EquipmentType equipmentType;
+    private List<Offer> offers;//это класс конкретного оборудования уже с четким набором услуг в этом списке
+    private HashMap<Params, String> params;
 
-    public ObjectFromDB prepareObjectFromDB(){
+    public ObjectFromDB prepareObjectFromDB() {
         ObjectFromDB objToPersist = new ObjectFromDB();
         objToPersist.setName(this.name);
         objToPersist.setType("equipment");
-        byte[] parameters =  SerializationUtils.serialize(this);
+        byte[] parameters = SerializationUtils.serialize(this);
         objToPersist.setParameters(parameters);
-        return  objToPersist;
+        return objToPersist;
     }
 
-    public static Equipment parseEquipment(ObjectFromDB objectFromDB){
+    public static Equipment parseEquipment(ObjectFromDB objectFromDB) {
         Equipment equipment = null;
         if (objectFromDB.getType().equals("equipment"))
-            equipment = (Equipment)SerializationUtils.deserialize(objectFromDB.getParameters());
+            equipment = (Equipment) SerializationUtils.deserialize(objectFromDB.getParameters());
         return equipment;
+    }
+
+    public Equipment(String name, EquipmentType equipmentType) {
+        this.name = name;
+        this.equipmentType = equipmentType;
+        this.offers = new ArrayList<Offer>();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEquipmentType(EquipmentType equipmentType) {
+        this.equipmentType = equipmentType;
+    }
+
+    public void setOffers(List<Offer> offers) {
+        this.offers = offers;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public EquipmentType getEquipmentType() {
+        return equipmentType;
+    }
+
+    public List<Offer> getOffers() {
+        return offers;
+    }
+
+    public HashMap<Params, String> getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap<Params, String> params) {
+        this.params = params;
     }
 }
