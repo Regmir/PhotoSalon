@@ -34,6 +34,7 @@ public class Equipment implements Serializable {
         this.name = name;
         this.equipmentType = equipmentType;
         this.offers = new ArrayList<Offer>();
+        this.params = new HashMap<Params, String>();
     }
 
     public void setName(String name) {
