@@ -8,33 +8,32 @@ import java.util.HashMap;
 import java.util.List;
 
 public class User implements Serializable {
-
-    List<Order> orders;
-    private HashMap<String, String> params;//хранение параметров личного кабинета и т д
+    private List<Order> orders;
+    private HashMap<Params, String> params;//хранение параметров личного кабинета и т д
 
     public User(String name, String password, String email, String admin){
-        params = new HashMap<String, String>();
-        this.params.put("name",name);
-        this.params.put("password",password);
-        this.params.put("email",email);
-        this.params.put("admin",admin);
+        this.params = new HashMap<Params, String>();
+        this.params.put(Params.NAME,name);
+        this.params.put(Params.PASSWORD,password);
+        this.params.put(Params.EMAIL,email);
+        this.params.put(Params.IS_ADMIN,admin);
     }
 
     public ObjectFromDB prepareObjectFromDB(){
         ObjectFromDB objToPersist = new ObjectFromDB();
-        objToPersist.setName(params.get("name"));
+        objToPersist.setName(params.get(Params.NAME));
         objToPersist.setType("user");
         byte[] parameters =  SerializationUtils.serialize(this);
         objToPersist.setParameters(parameters);
-        return  objToPersist;
+        return objToPersist;
     }
 
     public boolean authentificate(String password){
-        return params.get("password").equals(password);
+        return params.get(Params.PASSWORD).equals(password);
     }
 
     public boolean isadmin(){
-        return params.get("admin").equals("yes");
+        return params.get(Params.IS_ADMIN).equals("yes");
     }
 
     public static User parseUser(ObjectFromDB objectFromDB){
@@ -42,5 +41,21 @@ public class User implements Serializable {
         if (objectFromDB.getType().equals("user"))
             user = (User)SerializationUtils.deserialize(objectFromDB.getParameters());
         return user;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public HashMap<Params, String> getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap<Params, String> params) {
+        this.params = params;
     }
 }

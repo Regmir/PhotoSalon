@@ -22,7 +22,7 @@ public class ManagerController {
 
     @Autowired(required = true)
     @Qualifier(value = "objService")
-    public void setObjcectService(ObjectService objectService) {
+    public void setObjectService(ObjectService objectService) {
         this.objectService = objectService;
     }
 

@@ -13,7 +13,7 @@ public class Salon implements Serializable {
     private List<Worker> workers;
     private List<Order> orders;
     private List<Offer> offers;
-    private HashMap<String,String> params;//адрес, рабочий режим - надо будет придумать формат чтобы парсить при отображении, пример Понедельник?00:00-12:00#Вторник ......
+    private HashMap<Params, String> params;//адрес, рабочий режим - надо будет придумать формат чтобы парсить при отображении, пример Понедельник?00:00-12:00#Вторник ......
 
     public ObjectFromDB prepareObjectFromDB(){
         ObjectFromDB objToPersist = new ObjectFromDB();
@@ -24,15 +24,17 @@ public class Salon implements Serializable {
         return  objToPersist;
     }
 
-    public static EquipmentType parseEquipmentType(ObjectFromDB objectFromDB){
-        EquipmentType equipmenttype = null;
+    public static Salon parseSalon(ObjectFromDB objectFromDB){
+        Salon salon = null;
         if (objectFromDB.getType().equals("salon"))
-            equipmenttype = (EquipmentType)SerializationUtils.deserialize(objectFromDB.getParameters());
-        return equipmenttype;
+            salon = (Salon)SerializationUtils.deserialize(objectFromDB.getParameters());
+        return salon;
     }
 
     public Salon(String name) {
         this.name = name;
+        this.params = new HashMap<Params, String>();
+
     }
 
     public String getName() {
@@ -75,11 +77,11 @@ public class Salon implements Serializable {
         this.offers = offers;
     }
 
-    public HashMap<String, String> getParams() {
+    public HashMap<Params, String> getParams() {
         return params;
     }
 
-    public void setParams(HashMap<String, String> params) {
+    public void setParams(HashMap<Params, String> params) {
         this.params = params;
     }
 }

@@ -30,6 +30,7 @@ public class EquipmentType implements Serializable {
 
     public EquipmentType(String name) {
         this.name = name;
+        this.params = new HashMap<Params, String>();
     }
 
     public String getName() {

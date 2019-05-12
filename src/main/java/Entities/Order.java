@@ -23,16 +23,17 @@ public class Order implements Serializable {
         return objToPersist;
     }
 
-    public static Equipment parseEquipment(ObjectFromDB objectFromDB) {
-        Equipment equipment = null;
+    public static Order parseOrder(ObjectFromDB objectFromDB) {
+        Order order = null;
         if (objectFromDB.getType().equals("order"))
-            equipment = (Equipment) SerializationUtils.deserialize(objectFromDB.getParameters());
-        return equipment;
+            order = (Order) SerializationUtils.deserialize(objectFromDB.getParameters());
+        return order;
     }
 
     public Order(String name, BigInteger salonId) {
         this.name = name;
         this.salonId = salonId;
+        this.params = new HashMap<Params, String>();
     }
 
     public String getName() {

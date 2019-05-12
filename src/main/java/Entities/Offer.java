@@ -21,15 +21,16 @@ public class Offer implements Serializable {
         return objToPersist;
     }
 
-    public static Equipment parseEquipment(ObjectFromDB objectFromDB) {
-        Equipment equipment = null;
+    public static Offer parseOffer(ObjectFromDB objectFromDB) {
+        Offer offer = null;
         if (objectFromDB.getType().equals("offer"))
-            equipment = (Equipment) SerializationUtils.deserialize(objectFromDB.getParameters());
-        return equipment;
+            offer = (Offer) SerializationUtils.deserialize(objectFromDB.getParameters());
+        return offer;
     }
 
     public Offer(String name) {
         this.name = name;
+        this.params = new HashMap<Params, String>();
     }
 
     public String getName() {
