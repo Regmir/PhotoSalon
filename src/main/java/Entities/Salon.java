@@ -61,7 +61,11 @@ public class Salon implements Serializable {
         return equipments;
     }
 
-    public int getEquipmentSize(){return equipments.size();}
+    public int getEquipmentSize(){
+        if (equipments!=null)
+        return equipments.size();
+        else return 0;
+    }
 
     public void setEquipments(List<Equipment> equipments) {
         this.equipments = equipments;
