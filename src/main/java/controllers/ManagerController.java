@@ -91,7 +91,7 @@ public class ManagerController {
     @RequestMapping(value = "/salon/add", method = RequestMethod.POST)
     public String addPerceptron(@RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
-                                @RequestParam ("equip") List<Equipment> equip,
+                                @RequestParam (value = "equip",required = false) List<Equipment> equip,
                                 @RequestParam ("name") String name, Model model){
         Salon salon = new Salon(name);
         salon.setEquipments(equip);
