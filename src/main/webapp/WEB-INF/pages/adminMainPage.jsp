@@ -29,7 +29,7 @@
         <div class="card mb-4 box-shadow">
             <div class="card-body">
                 <h5 class="card-title">Список заказов</h5>
-                <a href="<c:url value="/show/admin/orders"/>">Редактировать</a>
+                <a href="<c:url value="/show/admin/order"/>">Редактировать</a>
             </div>
         </div>
         <div class="card mb-4 box-shadow">
@@ -41,7 +41,7 @@
         <div class="card mb-4 box-shadow">
             <div class="card-body">
                 <h5 class="card-title">Список салонов</h5>
-                <a href="<c:url value="/show/admin/salons"/>">Редактировать</a>
+                <a href="<c:url value="/show/admin/salon"/>">Редактировать</a>
                 <a href="<c:url value="/createSalon"/>">Создать</a>
             </div>
         </div>
