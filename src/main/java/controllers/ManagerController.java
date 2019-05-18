@@ -41,16 +41,16 @@ public class ManagerController {
         if (type.equals("equipment")){
             model.addAttribute("name","Оборудование");
         }
-        if (type.equals("salons")) {
+        if (type.equals("salon")) {
             model.addAttribute("name","Салоны");
         }
-        if (type.equals("orders")) {
+        if (type.equals("order")) {
             model.addAttribute("name","Заказы");
         }
         return "showObjectsByType";
     }
 
-    @RequestMapping("show/objectsfromdbdata/{id}")
+    @RequestMapping("show/admin/objectsfromdbdata/{id}")
     public String objData(@PathVariable("id") BigInteger id, Model model){
         ObjectFromDB objectFromDB = this.objectService.getObjectById(id);
         if (objectFromDB.getType().equals("equipment")) {
@@ -111,7 +111,7 @@ public class ManagerController {
     public String addPerceptron(@RequestParam ("id") String oldid,
                                 @RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
-                                @RequestParam ("equip") List<Equipment> equip,
+                                @RequestParam (value = "equip", required = false) List<Equipment> equip,
                                 @RequestParam ("name") String name,
                                 @RequestParam ("flag") String flag, Model model){
         Salon salon = new Salon(name);

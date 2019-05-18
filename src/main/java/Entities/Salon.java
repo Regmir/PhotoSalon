@@ -5,6 +5,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class Salon implements Serializable {
     public Salon(String name) {
         this.name = name;
         this.params = new HashMap<Params, String>();
+        this.equipments = new ArrayList<Equipment>();
 
     }
 
