@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,9 +8,9 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/bootstrap-grid.min.css" rel="stylesheet" >
-  <link href="css/bootstrap-reboot.css" rel="stylesheet">
+  <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+  <link href="resources/css/bootstrap-grid.min.css" rel="stylesheet" >
+  <link href="resources/css/bootstrap-reboot.css" rel="stylesheet">
 
 </head>
 <body>
@@ -20,7 +21,7 @@
     <a class="p-2 text-dark" href="#catalog">Каталог</a>
     <a class="p-2 text-dark" href="#catalog">Контакты</a>
   </nav>
-  <a class="btn btn-outline-danger" href="#">Вход</a>
+  <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/login">Вход</a>
 </div>
 
 

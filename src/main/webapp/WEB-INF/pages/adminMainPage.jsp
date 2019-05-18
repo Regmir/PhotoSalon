@@ -1,60 +1,63 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PhotoSalon</title>
-    <!-- <link href="css/bootstrap.css" rel="stylesheet" type="text/css"> -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/bootstrap-grid.min.css" rel="stylesheet" >
+    <link href="resources/css/bootstrap-reboot.css" rel="stylesheet">
+
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#defaultNavbar1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-            <a class="navbar-brand" href="">Главная страница</a></div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="defaultNavbar1">
-            <ul class="nav navbar-nav">
-                <li><a href="<c:url value="/show/perceptron"/>">Решатели<span class="sr-only">(current)</span></a></li>
-                <li><a href="<c:url value="/show/backpropagation"/>">Алгоритмы обучения</a></li>
-                <li><a href="<c:url value="/show/task"/>">Задачи</a></li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Создать<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href=createPerceptron>Решатель</a></li>
-                        <li><a href="<c:url value="/createAlgo"/>">Алгоритм обучения</a></li>
-                        <li><a href="createTask">Задачу</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Имя объекта">
-                </div>
-                <button type="submit" class="btn btn-default">Поиск</button>
-            </form>
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" style="border-bottom: 1px solid #eee;">
+    <h5 class="my-0 mr-md-auto font-weight-normal">МОИФОТО</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="#catalog">Каталог</a>
+        <a class="p-2 text-dark" href="#catalog">Контакты</a>
+    </nav>
+    <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
+</div>
+<div class="container" id="catalog">
+    <h3 class="m-3 pt-5" style="text-align: center">Каталог</h3>
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">Список заказов</h5>
+                <a href="<c:url value="/show/admin/orders"/>">Редактировать</a>
+            </div>
         </div>
-        <!-- /.navbar-collapse -->
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">Список оборудования</h5>
+                <a href="<c:url value="/show/admin/equipment"/>">Редактировать</a>
+            </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">Список салонов</h5>
+                <a href="<c:url value="/show/admin/salons"/>">Редактировать</a>
+            </div>
+        </div>
     </div>
-    <!-- /.container-fluid -->
-</nav>
-<h3>PhotoSalon</h3>
-<br/>
-<table class="table information_json">
-    <th><a href="<c:url value="/register"/>" target="_blank">Регистрация</a></th>
-    <th><a href="<c:url value="/login"/>" target="_blank">Вход</a></th>
-</table>
-<br/>
+
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+
 </body>
 </html>
