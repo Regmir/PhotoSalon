@@ -5,6 +5,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +41,39 @@ public class Offer implements Serializable {
     public Offer(String name) {
         this.name = name;
         this.params = new HashMap<Params, String>();
+    }
+
+    public int getParamsCount() {
+        if (params!=null)
+            if (params.size()==0)
+                return 1;
+            else return params.size();
+        return 1;
+    }
+
+    public String[] getParamsName(){
+        Params[] arr = (Params[]) params.entrySet().toArray();
+        String[] sarr = new String[params.size()];
+        int i=0;
+        for (Params p: arr
+        ) {
+            if (p.equals(Params.TIME_TO_OFFER)){ sarr[i]="Время"; i++; }
+            if (p.equals(Params.OFFER_PRICE)){ sarr[i]="Цена"; i++;}
+            if (p.equals(Params.DESCRIPTION)){ sarr[i]="Ограничения"; i++;}
+        }
+        return sarr;
+    }
+
+    public String[] getParamsVal(){
+        String[] arr = (String[]) params.values().toArray();
+        String[] sarr = new String[params.size()];
+        int i=0;
+        for (String p: arr
+        ) {
+            sarr[i] = p;
+            i++;
+        }
+        return sarr;
     }
 
     public String getName() {

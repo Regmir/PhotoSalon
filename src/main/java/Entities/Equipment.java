@@ -37,6 +37,15 @@ public class Equipment implements Serializable {
         this.params = new HashMap<Params, String>();
     }
 
+    public int getOfferCount(){
+        if (offers!=null)
+            if (offers.size()==0)
+                return 1;
+            else
+                return offers.size();
+        return 1;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -62,6 +62,8 @@ public class ManagerController {
         ObjectFromDB objectFromDB = this.objectService.getObjectById(id);
         if (objectFromDB.getType().equals("equipment")) {
             Equipment eq = Equipment.parseEquipment(objectFromDB);
+            model.addAttribute("offer",eq.getEquipmentType().getAvailableOffers());
+            model.addAttribute("type",eq.getEquipmentType().getName());
             model.addAttribute("equipment",eq);
             return "showAndChangeEquipment";
         }
@@ -105,7 +107,7 @@ public class ManagerController {
         }
         if (objectFromDB.getType().equals("offer")) {
             Offer o = Offer.parseOffer(objectFromDB);
-            model.addAttribute("offer",o);
+            model.addAttribute("of",o);
             return "showAndChangeOffer";
         }
         return  "objectsfromdbdata";
@@ -273,24 +275,86 @@ public class ManagerController {
                                @RequestParam ("type") String type,
                                @RequestParam ("name") String name,
                                @RequestParam ("flag") String flag, Model model){
-        EquipmentType equipmentType = new EquipmentType(name);
-        equipmentType.setAvailableOffers(ablt);
-        EquipmentType oldequipmentType = EquipmentType.parseEquipmentType(this.objectService.getObjectById(new BigInteger(oldid)));
-        ObjectFromDB objectFromDB = equipmentType.prepareObjectFromDB();
+        EquipmentType et = EquipmentType.parseEquipmentType(objectService.getObject(type,"equipmenttype"));
+        Equipment equipment = new Equipment(name,et);
+        equipment.setOffers(ablt);
+        Equipment oldequipment = Equipment.parseEquipment(this.objectService.getObjectById(new BigInteger(oldid)));
+        ObjectFromDB objectFromDB = equipment.prepareObjectFromDB();
         objectFromDB.setId(new BigInteger(oldid));
         if (flag.equals("new")) {
             BigInteger id = this.objectService.addObject(objectFromDB);
             objectFromDB = this.objectService.getObjectById(id);
-            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
-            model.addAttribute("equip", equipmentType);
+            equipment = Equipment.parseEquipment(objectFromDB);
+            model.addAttribute("equip", equipment);
         }
         if (flag.equals("old")) {
-            this.objectService.updateObject(objectFromDB,oldequipmentType.getName());
+            this.objectService.updateObject(objectFromDB,oldequipment.getName());
             objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
-            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
-            model.addAttribute("equip", equipmentType);
+            equipment = Equipment.parseEquipment(objectFromDB);
+            model.addAttribute("equip", equipment);
         }
         return "showEquipment";
+    }
+
+    @RequestMapping("/createEquipment")
+    public String cf( Model model){
+        return "createOffer";
+    }
+
+    @RequestMapping(value = "/offer/add", method = RequestMethod.POST)
+    public String addOffer(@RequestParam (value = "pname",required = false) List<String> pname,
+                               @RequestParam (value = "pval",required = false) List<String> pval,
+                               @RequestParam ("name") String name, Model model){
+        Offer offer = new Offer(name);
+        HashMap<Params,String> map = new HashMap<Params,String>();
+        int i=0;
+        for (String s:pname
+             ) {
+            if (s.equals("TIME_TO_OFFER")){map.put(Params.TIME_TO_OFFER,pval.get(i)); i++;}
+            if (s.equals("OFFER_PRICE")){map.put(Params.OFFER_PRICE,pval.get(i)); i++;}
+            if (s.equals("DESCRIPTION")){map.put(Params.DESCRIPTION,pval.get(i)); i++;}
+        }
+        offer.setParams(map);
+        ObjectFromDB objectFromDB = offer.prepareObjectFromDB();
+        BigInteger id = this.objectService.addObject(objectFromDB);
+        objectFromDB = this.objectService.getObjectById(id);
+        offer = Offer.parseOffer(objectFromDB);
+        model.addAttribute("offer",offer);
+        return "showOffer";
+    }
+
+    @RequestMapping(value = "/offer/addOrEdit", method = RequestMethod.POST)
+    public String addOffer(@RequestParam ("id") String oldid,
+                           @RequestParam (value = "pname",required = false) List<String> pname,
+                           @RequestParam (value = "pval",required = false) List<String> pval,
+                           @RequestParam ("name") String name,
+                           @RequestParam ("flag") String flag, Model model){
+        Offer offer = new Offer(name);
+        HashMap<Params,String> map = new HashMap<Params,String>();
+        int i=0;
+        for (String s:pname
+        ) {
+            if (s.equals("TIME_TO_OFFER")){map.put(Params.TIME_TO_OFFER,pval.get(i)); i++;}
+            if (s.equals("OFFER_PRICE")){map.put(Params.OFFER_PRICE,pval.get(i)); i++;}
+            if (s.equals("DESCRIPTION")){map.put(Params.DESCRIPTION,pval.get(i)); i++;}
+        }
+        offer.setParams(map);
+        Offer oldoffer = Offer.parseOffer(this.objectService.getObjectById(new BigInteger(oldid)));
+        ObjectFromDB objectFromDB = offer.prepareObjectFromDB();
+        objectFromDB.setId(new BigInteger(oldid));
+        if (flag.equals("new")) {
+            BigInteger id = this.objectService.addObject(objectFromDB);
+            objectFromDB = this.objectService.getObjectById(id);
+            offer = Offer.parseOffer(objectFromDB);
+            model.addAttribute("offer", offer);
+        }
+        if (flag.equals("old")) {
+            this.objectService.updateObject(objectFromDB,oldoffer.getName());
+            objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
+            offer = Offer.parseOffer(objectFromDB);
+            model.addAttribute("offer", offer);
+        }
+        return "showOffer";
     }
 
 }

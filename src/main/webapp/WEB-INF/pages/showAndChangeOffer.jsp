@@ -24,38 +24,38 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/salon/addOrEdit"/>">
+<form method="POST" action="<c:url value="/offer/addOrEdit"/>">
     <table class="table information_json">
-        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя салона" value="${salon.name}"></td></tr>
-        <tr><th>Адрес</th><td></td><td><input type="text" class="form-control" name="address" placeholder="Адрес" value="${salon.address}"></td></tr>
-        <tr><th>Время работы</th><td></td><td><input type="text" class="form-control" name="time" placeholder="Время работы" value="${salon.time}"></td></tr>
+        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования" value="${of.name}"></td></tr>
         <tr>
-            <th>Оборудование</th>
+            <th>Возможности</th>
             <th></th>
         </tr>
-        <c:forEach var="i" begin="0" end="${salon.equipmentSize-1}">
+        <c:forEach var="i" begin="0" end="${of.paramsCount-1}">
             <tr>
                 <td></td>
-                <td><select  class="form-control" name="ablt" ><option selected=${salon.equipments[i].name}> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>
-                <td><span class="btn btn-danger minus1 pull-right">&ndash;</span></td>
-            </tr>
-        </c:forEach>
-        <tr class="new_equipment">
-            <td></td>
-            <td><span class="btn btn-success plus1 pull-right">+</span></td>
-        </tr>
-        <tr>
-            <th>Работники</th>
-            <th></th>
-        </tr>
-        <c:forEach var="i" begin="0" end="${salon.workerSize-1}">
-            <tr>
-                <td></td>
-                <td><select  class="form-control" name="ablt" ><option selected=${salon.workers[i].name}> <c:forEach items="${works}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>
+                <td>
+                    <c:if test="${of.paramsName[i]=='Время'}">
+                    <select class="form-control" name="pname" ><option value="DESCRIPTION" >Ограничения</option>
+                    <option value="OFFER_PRICE" >Цена</option><option selected="selected"  value="TIME_TO_OFFER">Время</option>
+                    </select>
+                    </c:if>
+                    <c:if test="${of.paramsName[i]=='Ограничения'}">
+                        <select class="form-control" name="pname" ><option value="DESCRIPTION" selected="selected">Ограничения</option>
+                            <option value="OFFER_PRICE" >Цена</option><option  value="TIME_TO_OFFER">Время</option>
+                        </select>
+                    </c:if>
+                    <c:if test="${of.paramsName[i]=='Цена'}">
+                        <select class="form-control" name="pname" ><option value="DESCRIPTION" >Ограничения</option>
+                            <option value="OFFER_PRICE" selected="selected">Цена</option><option   value="TIME_TO_OFFER">Время</option>
+                        </select>
+                    </c:if>
+                </td>
+                <td><input type="text" placeholder="Значение параметра" class="form-control" name="pval" value="${of.paramsVal[i]}" ></td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>
         </c:forEach>
-        <tr class="new_worker">
+        <tr class="new_ability">
             <td></td>
             <td><span class="btn btn-success plus pull-right">+</span></td>
         </tr>
@@ -71,27 +71,16 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script>
     // формируем новые поля
-    jQuery('.plus1').click(function(){
-        jQuery('.new_equipment').before(
-            '<tr>' +
-            '<td></td>'+
-            '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
-            '<td><span class="btn btn-danger minus1 pull-right">&ndash;</span></td>' +
-            '</tr>'
-        );
-    });
-    // on - так как элемент динамически создан и обычный обработчик с ним не работает
-    jQuery(document).on('click', '.minus1', function(){
-        jQuery( this ).closest( 'tr' ).remove(); // удаление строки с полями
-    });// JavaScript Document
-</script>
-<script>
-    // формируем новые поля
     jQuery('.plus').click(function(){
-        jQuery('.new_worker').before(
+        jQuery('.new_ability').before(
             '<tr>' +
             '<td></td>'+
-            '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${works}" var="obj3"> <option value="${obj3.name}">${obj3.name}</option></c:forEach> </select></td>'+
+            '<td><select class="form-control" name="pname" >\n' +
+            '                    <option value="DESCRIPTION" >Ограничения</option>\n' +
+            '                    <option value="OFFER_PRICE" >Цена</option>\n' +
+            '                    <option selected="selected"  value="TIME_TO_OFFER">Время</option>\n' +
+            '                </select></td>'+
+            '<td><input type="text" placeholder="Значение параметра" class="form-control" name="pval" ></td>'+
             '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
             '</tr>'
         );

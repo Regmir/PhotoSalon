@@ -24,28 +24,31 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/salon/add"/>">
+<form method="POST" action="<c:url value="/equipmenttype/addOrEdit"/>">
     <table class="table information_json">
-        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя салона"></td></tr>
-        <tr><th>Адрес</th><td></td><td><input type="text" class="form-control" name="address" placeholder="Адрес"></td></tr>
-        <tr><th>Время работы</th><td></td><td><input type="text" class="form-control" name="time" placeholder="Время работы"></td></tr>
+        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования" value="${equipmenttype.name}"></td></tr>
         <tr>
-            <th>Оборудование</th>
+            <th>Возможности</th>
             <th></th>
         </tr>
-        <tr class="new_equipment">
+        <c:forEach var="i" begin="0" end="${equipment.offerCount-1}">
+            <tr>
+                <td></td>
+                <td><select  class="form-control" name="ablt" ><option selected=${equipment.offers[i].name}> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
+                </td>
+                <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
+            </tr>
+        </c:forEach>
+        <tr class="new_ability">
             <td></td>
-            <td><span class="btn btn-success plus1 pull-right">+</span></td>
+            <td><span class="btn btn-success plus pull-right">+</span></td>
         </tr>
+        <tr><td><input name="type" type="hidden" value="${type}"></td></tr>
         <tr>
-            <th>Работники</th>
-            <th></th>
+            <td><select class="form-control" name="flag" ><option selected="selected" value="new" >Сохранить как новый</option><option  value="old">Изменить существующий</option></select></td>
+            <td><input type="hidden" name="id" class="form-control" id="id" value="${salon.id}"></td>
         </tr>
-        <tr class="new_worker">
-            <td></td>
-            <td><span class="btn2 btn-success plus pull-right">+</span></td>
-        </tr>
-        <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
+        <tr><th><input type="submit" class="form-control" value="<spring:message text="Сохранить"/>"></th></tr>
     </table>
 </form>
 
@@ -53,27 +56,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script>
     // формируем новые поля
-    jQuery('.plus1').click(function(){
-        jQuery('.new_equipment').before(
-            '<tr>' +
-            '<td></td>'+
-            '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
-            '<td><span class="btn btn-danger minus1 pull-right">&ndash;</span></td>' +
-            '</tr>'
-        );
-    });
-    // on - так как элемент динамически создан и обычный обработчик с ним не работает
-    jQuery(document).on('click', '.minus1', function(){
-        jQuery( this ).closest( 'tr' ).remove(); // удаление строки с полями
-    });// JavaScript Document
-</script>
-<script>
-    // формируем новые поля
     jQuery('.plus').click(function(){
-        jQuery('.new_worker').before(
+        jQuery('.new_ability').before(
             '<tr>' +
             '<td></td>'+
-            '<td><select  class="form-control" name="works" placeholder="Работники"> <c:forEach items="${works}" var="obj3"> <option value="${obj3.name}">${obj3.name}</option></c:forEach> </select></td>'+
+            '<td><select  class="form-control" name="ablt" placeholder="Оборудование"> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
             '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
             '</tr>'
         );
@@ -85,3 +72,4 @@
 </script>
 </body>
 </html>
+
