@@ -5,9 +5,7 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Offer implements Serializable {
     private String name;
@@ -52,7 +50,7 @@ public class Offer implements Serializable {
     }
 
     public String[] getParamsName(){
-        Params[] arr = (Params[]) params.keySet().toArray();
+        Set<Params> arr = params.keySet();
         String[] sarr = new String[params.size()];
         int i=0;
         for (Params p: arr
@@ -65,7 +63,7 @@ public class Offer implements Serializable {
     }
 
     public String[] getParamsVal(){
-        String[] arr = (String[]) params.values().toArray();
+        Collection<String> arr = params.values();
         String[] sarr = new String[params.size()];
         int i=0;
         for (String p: arr
