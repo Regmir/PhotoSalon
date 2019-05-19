@@ -54,7 +54,7 @@ public class ManagerController {
     public String removeObj(@PathVariable("id") BigInteger id, Model model){
         String type = this.objectService.getObjectById(id).getType();
         this.objectService.removeObject(id);
-        return "redirect:/show/"+type;
+        return "redirect:/show/admin/"+type;
     }
 
     @RequestMapping("show/admin/objectsfromdbdata/{id}")
@@ -87,6 +87,16 @@ public class ManagerController {
             model.addAttribute("order",o);
             return "showAndChangeorder";
         }
+        if (objectFromDB.getType().equals("worker")) {
+            Worker o = Worker.parseWorker(objectFromDB);
+            model.addAttribute("worker",o);
+            return "showAndChangeWorker";
+        }
+        if (objectFromDB.getType().equals("equipmenttype")) {
+            EquipmentType o = EquipmentType.parseEquipmentType(objectFromDB);
+            model.addAttribute("equipmenttype",o);
+            return "showAndChangeEquipmentType";
+        }
         return  "objectsfromdbdata";
     }
 
@@ -111,9 +121,11 @@ public class ManagerController {
     public String addPerceptron(@RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
                                 @RequestParam (value = "equip",required = false) List<Equipment> equip,
+                                @RequestParam (value = "works", required = false) List<Worker> works,
                                 @RequestParam ("name") String name, Model model){
         Salon salon = new Salon(name);
         salon.setEquipments(equip);
+        salon.setWorkers(works);
         HashMap<Params, String> map= new HashMap<Params, String>();
         map.put(Params.ADDRESS,address);
         map.put(Params.TIME_TO_OFFER,time);
@@ -131,6 +143,7 @@ public class ManagerController {
                                 @RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
                                 @RequestParam (value = "equip", required = false) List<Equipment> equip,
+                                @RequestParam (value = "works", required = false) List<Worker> works,
                                 @RequestParam ("name") String name,
                                 @RequestParam ("flag") String flag, Model model){
         Salon salon = new Salon(name);
@@ -139,6 +152,7 @@ public class ManagerController {
         map.put(Params.ADDRESS,address);
         map.put(Params.TIME_TO_OFFER,time);
         salon.setParams(map);
+        salon.setWorkers(works);
         Salon oldSalon = Salon.parseSalon(this.objectService.getObjectById(new BigInteger(oldid)));
         ObjectFromDB objectFromDB = salon.prepareObjectFromDB();
         objectFromDB.setId(new BigInteger(oldid));
@@ -155,6 +169,49 @@ public class ManagerController {
             model.addAttribute("salon", salon);
         }
         return "showSalon";
+    }
+
+    @RequestMapping("/createEquipmentType")
+    public String ceq( Model model){
+        return "createEquipmentType";
+    }
+
+    @RequestMapping(value = "/equipmenttype/add", method = RequestMethod.POST)
+    public String addEquipmentType(@RequestParam (value = "ablt",required = false) List<Offer> ablt,
+                                   @RequestParam ("name") String name, Model model){
+        EquipmentType equipmentType = new EquipmentType(name);
+        equipmentType.setAvailableOffers(ablt);
+        ObjectFromDB objectFromDB = equipmentType.prepareObjectFromDB();
+        BigInteger id = this.objectService.addObject(objectFromDB);
+        objectFromDB = this.objectService.getObjectById(id);
+        equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
+        model.addAttribute("equipt",equipmentType);
+        return "showEquipmentType";
+    }
+
+    @RequestMapping(value = "/equipmenttype/addOrEdit", method = RequestMethod.POST)
+    public String addEquipmentType(@RequestParam ("id") String oldid,
+                                @RequestParam (value = "ablt", required = false) List<Offer> ablt,
+                                @RequestParam ("name") String name,
+                                @RequestParam ("flag") String flag, Model model){
+        EquipmentType equipmentType = new EquipmentType(name);
+        equipmentType.setAvailableOffers(ablt);
+        EquipmentType oldequipmentType = EquipmentType.parseEquipmentType(this.objectService.getObjectById(new BigInteger(oldid)));
+        ObjectFromDB objectFromDB = equipmentType.prepareObjectFromDB();
+        objectFromDB.setId(new BigInteger(oldid));
+        if (flag.equals("new")) {
+            BigInteger id = this.objectService.addObject(objectFromDB);
+            objectFromDB = this.objectService.getObjectById(id);
+            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
+            model.addAttribute("equip", equipmentType);
+        }
+        if (flag.equals("old")) {
+            this.objectService.updateObject(objectFromDB,oldequipmentType.getName());
+            objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
+            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
+            model.addAttribute("equip", equipmentType);
+        }
+        return "showEquipmentType";
     }
 
 }

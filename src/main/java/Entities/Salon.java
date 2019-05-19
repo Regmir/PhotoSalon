@@ -65,19 +65,28 @@ public class Salon implements Serializable {
 
     public int getEquipmentSize(){
         if (equipments!=null)
-        return equipments.size();
+            if (equipments.size()==0)
+                return 1;
+            else
+                return equipments.size();
         else return 1;
     }
 
     public int getWorkerSize(){
         if (workers!=null)
-            return workers.size();
+            if (workers.size()==0)
+                return 1;
+            else
+                return workers.size();
         else return 1;
     }
 
     public int getOrderSize(){
         if (orders!=null)
-            return orders.size();
+            if (orders.size()==0)
+                return 1;
+            else
+                return orders.size();
         else return 1;
     }
 

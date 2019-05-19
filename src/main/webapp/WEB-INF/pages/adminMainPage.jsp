@@ -45,6 +45,20 @@
                 <a href="<c:url value="/createSalon"/>">Создать</a>
             </div>
         </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">Список типов оборудования</h5>
+                <a href="<c:url value="/show/admin/equipmenttype"/>">Редактировать</a>
+                <a href="<c:url value="/createEquipmenttype"/>">Создать</a>
+            </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h5 class="card-title">Список работников</h5>
+                <a href="<c:url value="/show/admin/worker"/>">Редактировать</a>
+                <a href="<c:url value="/createWorker"/>">Создать</a>
+            </div>
+        </div>
     </div>
 
 

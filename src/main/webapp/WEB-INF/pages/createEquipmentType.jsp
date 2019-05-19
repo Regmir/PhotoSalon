@@ -24,26 +24,16 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/salon/add"/>">
+<form method="POST" action="<c:url value="/equipmenttype/add"/>">
     <table class="table information_json">
-        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя салона"></td></tr>
-        <tr><th>Адрес</th><td></td><td><input type="text" class="form-control" name="address" placeholder="Адрес"></td></tr>
-        <tr><th>Время работы</th><td></td><td><input type="text" class="form-control" name="time" placeholder="Время работы"></td></tr>
+        <tr><th>Имя типа оборудования</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования"></td></tr>
         <tr>
-            <th>Оборудование</th>
+            <th>Возможности</th>
             <th></th>
         </tr>
-        <tr class="new_equipment">
+        <tr class="new_ability">
             <td></td>
             <td><span class="btn btn-success plus pull-right">+</span></td>
-        </tr>
-        <tr>
-            <th>Работники</th>
-            <th></th>
-        </tr>
-        <tr class="new_worker">
-            <td></td>
-            <td><span class="btn2 btn-success plus pull-right">+</span></td>
         </tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
     </table>
@@ -54,26 +44,10 @@
 <script>
     // формируем новые поля
     jQuery('.plus').click(function(){
-        jQuery('.new_equipment').before(
+        jQuery('.new_ability').before(
             '<tr>' +
             '<td></td>'+
-            '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
-            '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
-            '</tr>'
-        );
-    });
-    // on - так как элемент динамически создан и обычный обработчик с ним не работает
-    jQuery(document).on('click', '.minus', function(){
-        jQuery( this ).closest( 'tr' ).remove(); // удаление строки с полями
-    });// JavaScript Document
-</script>
-<script>
-    // формируем новые поля
-    jQuery('.plus').click(function(){
-        jQuery('.new_worker').before(
-            '<tr>' +
-            '<td></td>'+
-            '<td><select  class="form-control" name="works" placeholder="Работники"> <c:forEach items="${works}" var="obj3"> <option value="${obj3.name}">${obj3.name}</option></c:forEach> </select></td>'+
+            '<td><  class="form-control" name="ablt" placeholder="Возможность" type="text"></td>'+
             '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
             '</tr>'
         );
