@@ -24,7 +24,7 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/offer/addOrEdit"/>">
+<form method="POST" action="<c:url value="/worker/addOrEdit"/>">
     <table class="table information_json">
         <tr><th>Имя работника</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя работника" value="${work.name}"></td></tr>
         <tr>

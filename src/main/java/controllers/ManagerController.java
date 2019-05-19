@@ -47,6 +47,15 @@ public class ManagerController {
         if (type.equals("order")) {
             model.addAttribute("name","Заказы");
         }
+        if (type.equals("worker")) {
+            model.addAttribute("name","Работники");
+        }
+        if (type.equals("equipmenttype")) {
+            model.addAttribute("name","Типы оборудования");
+        }
+        if (type.equals("offer")) {
+            model.addAttribute("name","Услуги");
+        }
         return "showObjectsByType";
     }
 
