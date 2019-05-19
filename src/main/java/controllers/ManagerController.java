@@ -50,6 +50,13 @@ public class ManagerController {
         return "showObjectsByType";
     }
 
+    @RequestMapping("/remove/{id}")
+    public String removeObj(@PathVariable("id") BigInteger id, Model model){
+        String type = this.objectService.getObjectById(id).getType();
+        this.objectService.removeObject(id);
+        return "redirect:/show/"+type;
+    }
+
     @RequestMapping("show/admin/objectsfromdbdata/{id}")
     public String objData(@PathVariable("id") BigInteger id, Model model){
         ObjectFromDB objectFromDB = this.objectService.getObjectById(id);
@@ -67,6 +74,12 @@ public class ManagerController {
                 eq.add(Equipment.parseEquipment(o));
             }
             model.addAttribute("equips",eq);
+            List<Worker> w = new ArrayList<Worker>();
+            for (ObjectFromDB o:
+                    objectService.getByType("worker")) {
+                w.add(Worker.parseWorker(o));
+            }
+            model.addAttribute("works",w);
             return "showAndChangeSalon";
         }
         if (objectFromDB.getType().equals("order")) {
@@ -85,6 +98,12 @@ public class ManagerController {
             eq.add(Equipment.parseEquipment(o));
         }
         model.addAttribute("equips",eq);
+        List<Worker> w = new ArrayList<Worker>();
+        for (ObjectFromDB o:
+                objectService.getByType("worker")) {
+            w.add(Worker.parseWorker(o));
+        }
+        model.addAttribute("works",w);
         return "createSalon";
     }
 

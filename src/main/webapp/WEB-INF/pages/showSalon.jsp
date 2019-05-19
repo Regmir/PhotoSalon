@@ -42,6 +42,20 @@
     </c:forEach>
 </table>
 
+<br>
+<h1>Работники</h1>
+
+<table class="table information_json">
+    <tr>
+        <th>Имя</th>
+    </tr>
+    <c:forEach items="${salon.workers}" var="obj">
+        <tr>
+            <td>${obj.name}</td>
+        </tr>
+    </c:forEach>
+</table>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>

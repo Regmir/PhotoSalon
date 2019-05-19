@@ -38,6 +38,8 @@ public class Salon implements Serializable {
         this.name = name;
         this.params = new HashMap<Params, String>();
         this.equipments = new ArrayList<Equipment>();
+        this.workers = new ArrayList<Worker>();
+        this.orders = new ArrayList<Order>();
 
     }
 
@@ -64,7 +66,19 @@ public class Salon implements Serializable {
     public int getEquipmentSize(){
         if (equipments!=null)
         return equipments.size();
-        else return 0;
+        else return 1;
+    }
+
+    public int getWorkerSize(){
+        if (workers!=null)
+            return workers.size();
+        else return 1;
+    }
+
+    public int getOrderSize(){
+        if (orders!=null)
+            return orders.size();
+        else return 1;
     }
 
     public void setEquipments(List<Equipment> equipments) {
