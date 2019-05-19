@@ -296,7 +296,7 @@ public class ManagerController {
         return "showEquipment";
     }
 
-    @RequestMapping("/createEquipment")
+    @RequestMapping("/createOffer")
     public String cf( Model model){
         return "createOffer";
     }
