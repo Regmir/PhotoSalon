@@ -91,7 +91,7 @@ public class ManagerController {
         }
         if (objectFromDB.getType().equals("worker")) {
             Worker o = Worker.parseWorker(objectFromDB);
-            model.addAttribute("worker",o);
+            model.addAttribute("work",o);
             return "showAndChangeWorker";
         }
         if (objectFromDB.getType().equals("equipmenttype")) {
@@ -131,7 +131,7 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/salon/add", method = RequestMethod.POST)
-    public String addPerceptron(@RequestParam ("address") String address,
+    public String addSalon(@RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
                                 @RequestParam (value = "equip",required = false) List<String> equip,
                                 @RequestParam (value = "works", required = false) List<String> works,
@@ -139,10 +139,12 @@ public class ManagerController {
         Salon salon = new Salon(name);
         ArrayList<Equipment> equiptrue = new ArrayList<Equipment>();
         ArrayList<Worker> workstrue = new ArrayList<Worker>();
+        if (equip!=null)
         for (String s:equip
              ) {
             equiptrue.add(Equipment.parseEquipment(objectService.getObject(s,"equipment")));
         }
+        if (works!=null)
         for (String s:works
         ) {
             workstrue.add(Worker.parseWorker(objectService.getObject(s,"worker")));
@@ -172,10 +174,12 @@ public class ManagerController {
         Salon salon = new Salon(name);
         ArrayList<Equipment> equiptrue = new ArrayList<Equipment>();
         ArrayList<Worker> workstrue = new ArrayList<Worker>();
+        if (equip!=null)
         for (String s:equip
         ) {
             equiptrue.add(Equipment.parseEquipment(objectService.getObject(s,"equipment")));
         }
+        if (works!=null)
         for (String s:works
         ) {
             workstrue.add(Worker.parseWorker(objectService.getObject(s,"worker")));
@@ -375,6 +379,45 @@ public class ManagerController {
             model.addAttribute("offer", offer);
         }
         return "showOffer";
+    }
+
+    @RequestMapping("/createWorker")
+    public String cw( Model model){
+        return "createWorker";
+    }
+
+    @RequestMapping(value = "/worker/add", method = RequestMethod.POST)
+    public String addWorker(@RequestParam ("name") String name, Model model){
+        Worker worker = new Worker(name);
+        ObjectFromDB objectFromDB = worker.prepareObjectFromDB();
+        BigInteger id = this.objectService.addObject(objectFromDB);
+        objectFromDB = this.objectService.getObjectById(id);
+        worker = Worker.parseWorker(objectFromDB);
+        model.addAttribute("work",worker);
+        return "showWorker";
+    }
+
+    @RequestMapping(value = "/worker/addOrEdit", method = RequestMethod.POST)
+    public String addOffer(@RequestParam ("name") String name,
+                           @RequestParam ("id") String oldid,
+                           @RequestParam ("flag") String flag, Model model){
+        Worker worker = new Worker(name);
+        Worker oldworker = Worker.parseWorker(this.objectService.getObjectById(new BigInteger(oldid)));
+        ObjectFromDB objectFromDB = worker.prepareObjectFromDB();
+        objectFromDB.setId(new BigInteger(oldid));
+        if (flag.equals("new")) {
+            BigInteger id = this.objectService.addObject(objectFromDB);
+            objectFromDB = this.objectService.getObjectById(id);
+            worker = Worker.parseWorker(objectFromDB);
+            model.addAttribute("worker", worker);
+        }
+        if (flag.equals("old")) {
+            this.objectService.updateObject(objectFromDB,oldworker.getName());
+            objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
+            worker = Worker.parseWorker(objectFromDB);
+            model.addAttribute("work", worker);
+        }
+        return "showWorker";
     }
 
 }

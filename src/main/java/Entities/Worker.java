@@ -28,6 +28,10 @@ public class Worker implements Serializable {
         return worker;
     }
 
+    public Worker(String name){
+        this.name=name;
+    }
+
     public BigInteger getId() {
         return id;
     }
