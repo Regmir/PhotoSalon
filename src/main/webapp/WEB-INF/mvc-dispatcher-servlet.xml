@@ -64,12 +64,12 @@
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="500000000"></property>
     </bean>
 
     <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/resources/**" location="/resources/"
+                   cache-period="31556926"/>
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/resources/**" location="/resources"></mvc:resources>
 
 
 </beans>

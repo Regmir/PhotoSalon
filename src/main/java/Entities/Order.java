@@ -13,6 +13,15 @@ public class Order implements Serializable {
     private List<Photo> photos;
     private BigInteger salonId;
     private HashMap<Params, String> params;//тут будем хранить статутс, даты, ещё что понадобиться
+    private BigInteger id;
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
 
     public ObjectFromDB prepareObjectFromDB() {
         ObjectFromDB objToPersist = new ObjectFromDB();
@@ -27,6 +36,7 @@ public class Order implements Serializable {
         Order order = null;
         if (objectFromDB.getType().equals("order"))
             order = (Order) SerializationUtils.deserialize(objectFromDB.getParameters());
+        order.setId(objectFromDB.getId());
         return order;
     }
 

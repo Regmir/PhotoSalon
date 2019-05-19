@@ -24,20 +24,40 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<h1>${name}</h1>
+<h1>Салон ${salon.name}</h1>
+<h1>Часы ${salon.time}</h1>
+<h1>Адрес ${salon.address}</h1>
+<br>
+<h1>Оборудование</h1>
+
 <table class="table information_json">
     <tr>
         <th>Имя</th>
-        <th>Тип</th>
-        <th>Удалить</th>
     </tr>
-    <c:forEach items="${objects}" var="obj">
+    <c:forEach items="${salon.equipments}" var="obj">
         <tr>
-            <td><a href="objectsfromdbdata/${obj.id}" target="_blank">${obj.name}</a></td>
-            <td>${obj.type}</td>
-            <td><a href="<c:url value='/remove/${obj.id}'/>">Удалить</a></td>
+            <td>${obj.name}</td>
+            <td>${obj.equipmentType.name}</td>
         </tr>
     </c:forEach>
 </table>
+
+<br>
+<h1>Работники</h1>
+
+<table class="table information_json">
+    <tr>
+        <th>Имя</th>
+    </tr>
+    <c:forEach items="${salon.workers}" var="obj">
+        <tr>
+            <td>${obj.name}</td>
+        </tr>
+    </c:forEach>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
+

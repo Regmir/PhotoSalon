@@ -24,20 +24,19 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<h1>${name}</h1>
-<table class="table information_json">
-    <tr>
-        <th>Имя</th>
-        <th>Тип</th>
-        <th>Удалить</th>
-    </tr>
-    <c:forEach items="${objects}" var="obj">
+<form method="POST" action="<c:url value="/worker/addOrEdit"/>">
+    <table class="table information_json">
+        <tr><th>Имя работника</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя работника" value="${work.name}"></td></tr>
         <tr>
-            <td><a href="objectsfromdbdata/${obj.id}" target="_blank">${obj.name}</a></td>
-            <td>${obj.type}</td>
-            <td><a href="<c:url value='/remove/${obj.id}'/>">Удалить</a></td>
+            <td><select class="form-control" name="flag" ><option selected="selected" value="new" >Сохранить как новый</option><option  value="old">Изменить существующий</option></select></td>
+            <td><input type="hidden" name="id" class="form-control" id="id" value="${work.id}"></td>
         </tr>
-    </c:forEach>
-</table>
+        <tr><th><input type="submit" class="form-control" value="<spring:message text="Сохранить"/>"></th></tr>
+    </table>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>
+

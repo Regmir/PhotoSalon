@@ -24,17 +24,38 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<h3>Вход</h3>
-<br/>
-<form method="POST" action="<c:url value="/user/login"/>">
-<table class="table information_json">
-    <tr><th>Имя пользователя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя пользователя"></td></tr>
-    <tr><th>Пароль</th><td></td><td><input type="password" class="form-control" name="pass" placeholder="Пароль"></td></tr>
-    <tr><th><input type="submit" class="form-control" value="Войти"></th></tr>
-</table>
+<form method="POST" action="<c:url value="/equipmenttype/add"/>">
+    <table class="table information_json">
+        <tr><th>Имя типа оборудования</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования"></td></tr>
+        <tr>
+            <th>Возможности</th>
+            <th></th>
+        </tr>
+        <tr class="new_ability">
+            <td></td>
+            <td><span class="btn btn-success plus pull-right">+</span></td>
+        </tr>
+        <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
+    </table>
 </form>
-<br/>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script>
+    // формируем новые поля
+    jQuery('.plus').click(function(){
+        jQuery('.new_ability').before(
+            '<tr>' +
+            '<td></td>'+
+            '<td><select  class="form-control" name="ablt" placeholder="Оборудование"> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
+            '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
+            '</tr>'
+        );
+    });
+    // on - так как элемент динамически создан и обычный обработчик с ним не работает
+    jQuery(document).on('click', '.minus', function(){
+        jQuery( this ).closest( 'tr' ).remove(); // удаление строки с полями
+    });// JavaScript Document
+</script>
 </body>
 </html>

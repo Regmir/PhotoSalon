@@ -4,6 +4,7 @@ import dataBaseManagement.model.ObjectFromDB;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,15 @@ public class Equipment implements Serializable {
     private EquipmentType equipmentType;
     private List<Offer> offers;//это класс конкретного оборудования уже с четким набором услуг в этом списке
     private HashMap<Params, String> params;
+    private BigInteger id;
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
 
     public ObjectFromDB prepareObjectFromDB() {
         ObjectFromDB objToPersist = new ObjectFromDB();
@@ -35,6 +45,15 @@ public class Equipment implements Serializable {
         this.equipmentType = equipmentType;
         this.offers = new ArrayList<Offer>();
         this.params = new HashMap<Params, String>();
+    }
+
+    public int getOfferCount(){
+        if (offers!=null)
+            if (offers.size()==0)
+                return 1;
+            else
+                return offers.size();
+        return 1;
     }
 
     public void setName(String name) {

@@ -61,11 +61,11 @@ public class ObjectsFromDBController {
         if (obj!=null){
             User user = User.parseUser(obj);
             if (user.authentificate(pass)) {
-                if (user.isadmin()) return  "redirect:/adminMainPage";
-                else return "redirect:/userMainPage";
+                if (user.isadmin()) return  "adminMainPage";
+                else return "userMainPage";
             }
         }
-        return "redirect:/authentificationFailed";
+        return "authentificationFailed";
     }
 
     @RequestMapping("/login")
