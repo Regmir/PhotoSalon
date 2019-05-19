@@ -95,7 +95,18 @@ public class ManagerController {
         if (objectFromDB.getType().equals("equipmenttype")) {
             EquipmentType o = EquipmentType.parseEquipmentType(objectFromDB);
             model.addAttribute("equipmenttype",o);
+            List<Offer> e = new ArrayList<Offer>();
+            for (ObjectFromDB of:
+                    objectService.getByType("offer")) {
+                e.add(Offer.parseOffer(of));
+            }
+            model.addAttribute("offer",e);
             return "showAndChangeEquipmentType";
+        }
+        if (objectFromDB.getType().equals("offer")) {
+            Offer o = Offer.parseOffer(objectFromDB);
+            model.addAttribute("offer",o);
+            return "showAndChangeOffer";
         }
         return  "objectsfromdbdata";
     }
@@ -173,11 +184,17 @@ public class ManagerController {
 
     @RequestMapping("/createEquipmentType")
     public String ceq( Model model){
+        List<Offer> e = new ArrayList<Offer>();
+        for (ObjectFromDB o:
+                objectService.getByType("offer")) {
+            e.add(Offer.parseOffer(o));
+        }
+        model.addAttribute("offer",e);
         return "createEquipmentType";
     }
 
     @RequestMapping(value = "/equipmenttype/add", method = RequestMethod.POST)
-    public String addEquipmentType(@RequestParam (value = "ablt",required = false) List<Offer> ablt,
+    public String addEquipmentType(@RequestParam (value = "ablt", required = false) List<Offer> ablt,
                                    @RequestParam ("name") String name, Model model){
         EquipmentType equipmentType = new EquipmentType(name);
         equipmentType.setAvailableOffers(ablt);
@@ -212,6 +229,68 @@ public class ManagerController {
             model.addAttribute("equip", equipmentType);
         }
         return "showEquipmentType";
+    }
+
+    @RequestMapping("/createEquipment")
+    public String ce( Model model){
+        List<EquipmentType> e = new ArrayList<EquipmentType>();
+        for (ObjectFromDB o:
+                objectService.getByType("equipmenttype")) {
+            e.add(EquipmentType.parseEquipmentType(o));
+        }
+        model.addAttribute("type",e);
+        return "createEquipment";
+    }
+
+    @RequestMapping(value = "/createEquipment/proceed",method = RequestMethod.POST)
+    public String cep( @RequestParam ("name") String name,
+                       @RequestParam ("type") String type, Model model){
+        model.addAttribute("type",type);
+        model.addAttribute("name",name);
+        List<Offer> of = EquipmentType.parseEquipmentType(objectService.getObject(type,"equipmenttype")).getAvailableOffers();
+        model.addAttribute("offer",of);
+        return "createEquipment2";
+    }
+
+    @RequestMapping(value = "/equipment/add", method = RequestMethod.POST)
+    public String addEquipment(@RequestParam (value = "ablt",required = false) List<Offer> ablt,
+                               @RequestParam ("type") String type,
+                               @RequestParam ("name") String name, Model model){
+        EquipmentType et = EquipmentType.parseEquipmentType(objectService.getObject(type,"equipmenttype"));
+        Equipment equipment = new Equipment(name,et);
+        equipment.setOffers(ablt);
+        ObjectFromDB objectFromDB = equipment.prepareObjectFromDB();
+        BigInteger id = this.objectService.addObject(objectFromDB);
+        objectFromDB = this.objectService.getObjectById(id);
+        equipment = Equipment.parseEquipment(objectFromDB);
+        model.addAttribute("equip",equipment);
+        return "showEquipment";
+    }
+
+    @RequestMapping(value = "/equipment/addOrEdit", method = RequestMethod.POST)
+    public String addEquipment(@RequestParam ("id") String oldid,
+                               @RequestParam (value = "ablt",required = false) List<Offer> ablt,
+                               @RequestParam ("type") String type,
+                               @RequestParam ("name") String name,
+                               @RequestParam ("flag") String flag, Model model){
+        EquipmentType equipmentType = new EquipmentType(name);
+        equipmentType.setAvailableOffers(ablt);
+        EquipmentType oldequipmentType = EquipmentType.parseEquipmentType(this.objectService.getObjectById(new BigInteger(oldid)));
+        ObjectFromDB objectFromDB = equipmentType.prepareObjectFromDB();
+        objectFromDB.setId(new BigInteger(oldid));
+        if (flag.equals("new")) {
+            BigInteger id = this.objectService.addObject(objectFromDB);
+            objectFromDB = this.objectService.getObjectById(id);
+            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
+            model.addAttribute("equip", equipmentType);
+        }
+        if (flag.equals("old")) {
+            this.objectService.updateObject(objectFromDB,oldequipmentType.getName());
+            objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
+            equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
+            model.addAttribute("equip", equipmentType);
+        }
+        return "showEquipment";
     }
 
 }

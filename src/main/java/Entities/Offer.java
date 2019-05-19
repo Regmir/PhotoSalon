@@ -11,6 +11,15 @@ import java.util.List;
 public class Offer implements Serializable {
     private String name;
     private HashMap<Params, String> params; //время выполнения заказа в часах, цена, ограничения на фото
+    private BigInteger id;
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
 
     public ObjectFromDB prepareObjectFromDB() {
         ObjectFromDB objToPersist = new ObjectFromDB();

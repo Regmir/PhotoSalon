@@ -24,7 +24,7 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/salon/addOrEdit"/>">
+<form method="POST" action="<c:url value="/equipmenttype/addOrEdit"/>">
     <table class="table information_json">
         <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования" value="${equipmenttype.name}"></td></tr>
         <tr>
@@ -34,7 +34,8 @@
         <c:forEach var="i" begin="0" end="${equipmenttype.avaliableOfferCount-1}">
             <tr>
                 <td></td>
-                <td><input type="text" min="1" class="form-control" name="ablt" value=${equipmenttype.availableOffers[i].name}></td>
+                <td><select  class="form-control" name="ablt" ><option selected=${equipmenttype.availableOffers[i].name}> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
+                </td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>
         </c:forEach>
@@ -58,7 +59,7 @@
         jQuery('.new_ability').before(
             '<tr>' +
             '<td></td>'+
-            '<td><  class="form-control" name="ablt" placeholder="Возможность" type="text"></td>'+
+            '<td><select  class="form-control" name="ablt" placeholder="Оборудование"> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
             '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
             '</tr>'
         );

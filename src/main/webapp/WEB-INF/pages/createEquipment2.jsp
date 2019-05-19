@@ -24,9 +24,8 @@
     <a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/">Выход</a>
 </div>
 
-<form method="POST" action="<c:url value="/equipmenttype/add"/>">
+<form method="POST" action="<c:url value="/equipment/add"/>">
     <table class="table information_json">
-        <tr><th>Имя типа оборудования</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования"></td></tr>
         <tr>
             <th>Возможности</th>
             <th></th>
@@ -35,6 +34,8 @@
             <td></td>
             <td><span class="btn btn-success plus pull-right">+</span></td>
         </tr>
+        <tr><td><input name="type" type="hidden" value="${type}"></td></tr>
+        <tr><td><input name="name" type="hidden" value="${name}"></td></tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
     </table>
 </form>
