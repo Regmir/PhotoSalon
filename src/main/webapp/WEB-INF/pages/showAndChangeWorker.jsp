@@ -29,7 +29,7 @@
         <tr><th>Имя работника</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя работника" value="${work.name}"></td></tr>
         <tr>
             <td><select class="form-control" name="flag" ><option selected="selected" value="new" >Сохранить как новый</option><option  value="old">Изменить существующий</option></select></td>
-            <td><input type="hidden" name="id" class="form-control" id="id" value="${of.id}"></td>
+            <td><input type="hidden" name="id" class="form-control" id="id" value="${work.id}"></td>
         </tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Сохранить"/>"></th></tr>
     </table>

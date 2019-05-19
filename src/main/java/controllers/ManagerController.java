@@ -255,7 +255,7 @@ public class ManagerController {
             BigInteger id = this.objectService.addObject(objectFromDB);
             objectFromDB = this.objectService.getObjectById(id);
             equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
-            model.addAttribute("equip", equipmentType);
+            model.addAttribute("equipt", equipmentType);
         }
         if (flag.equals("old")) {
             this.objectService.updateObject(objectFromDB,oldequipmentType.getName());

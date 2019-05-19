@@ -37,7 +37,7 @@
     <c:forEach items="${salon.equipments}" var="obj">
         <tr>
             <td>${obj.name}</td>
-            <td>${obj.equipmentType}</td>
+            <td>${obj.equipmentType.name}</td>
         </tr>
     </c:forEach>
 </table>
