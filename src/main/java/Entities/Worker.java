@@ -24,6 +24,7 @@ public class Worker implements Serializable {
         Worker worker = null;
         if (objectFromDB.getType().equals("worker"))
             worker = (Worker) SerializationUtils.deserialize(objectFromDB.getParameters());
+        worker.setId(objectFromDB.getId());
         return worker;
     }
 

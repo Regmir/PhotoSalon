@@ -31,6 +31,7 @@ public class Salon implements Serializable {
         Salon salon = null;
         if (objectFromDB.getType().equals("salon"))
             salon = (Salon)SerializationUtils.deserialize(objectFromDB.getParameters());
+        salon.setId(objectFromDB.getId());
         return salon;
     }
 

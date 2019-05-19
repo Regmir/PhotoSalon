@@ -28,6 +28,7 @@ public class EquipmentType implements Serializable {
         EquipmentType equipmenttype = null;
         if (objectFromDB.getType().equals("equipmenttype"))
             equipmenttype = (EquipmentType)SerializationUtils.deserialize(objectFromDB.getParameters());
+        equipmenttype.setId(objectFromDB.getId());
         return equipmenttype;
     }
 

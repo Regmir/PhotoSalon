@@ -33,6 +33,7 @@ public class Offer implements Serializable {
         Offer offer = null;
         if (objectFromDB.getType().equals("offer"))
             offer = (Offer) SerializationUtils.deserialize(objectFromDB.getParameters());
+        offer.setId(objectFromDB.getId());
         return offer;
     }
 
