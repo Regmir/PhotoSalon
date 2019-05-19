@@ -37,6 +37,14 @@
             <td></td>
             <td><span class="btn btn-success plus pull-right">+</span></td>
         </tr>
+        <tr>
+            <th>Работники</th>
+            <th></th>
+        </tr>
+        <tr class="new_worker">
+            <td></td>
+            <td><span class="btn btn-success plus pull-right">+</span></td>
+        </tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
     </table>
 </form>
@@ -50,6 +58,22 @@
             '<tr>' +
             '<td></td>'+
             '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>'+
+            '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
+            '</tr>'
+        );
+    });
+    // on - так как элемент динамически создан и обычный обработчик с ним не работает
+    jQuery(document).on('click', '.minus', function(){
+        jQuery( this ).closest( 'tr' ).remove(); // удаление строки с полями
+    });// JavaScript Document
+</script>
+<script>
+    // формируем новые поля
+    jQuery('.plus').click(function(){
+        jQuery('.new_worker').before(
+            '<tr>' +
+            '<td></td>'+
+            '<td><select  class="form-control" name="equip" placeholder="Оборудование"> <c:forEach items="${works}" var="obj3"> <option value="${obj3.name}">${obj3.name}</option></c:forEach> </select></td>'+
             '<td><span class="btn btn-danger minus pull-right">&ndash;</span></td>' +
             '</tr>'
         );
