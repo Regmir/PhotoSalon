@@ -34,7 +34,7 @@
         <c:forEach var="i" begin="0" end="${equipmenttype.avaliableOfferCount-1}">
             <tr>
                 <td></td>
-                <td><select  class="form-control" name="ablt" ><option selected=${equipmenttype.availableOffers[i].name}> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
+                <td><select  class="form-control" name="ablt" ><option value="${equipmenttype.availableOffers[i].name}" selected="selected">${equipmenttype.availableOffers[i].name}</option> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
                 </td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>

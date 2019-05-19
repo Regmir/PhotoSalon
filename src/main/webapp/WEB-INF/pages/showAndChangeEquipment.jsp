@@ -26,7 +26,7 @@
 
 <form method="POST" action="<c:url value="/equipmenttype/addOrEdit"/>">
     <table class="table information_json">
-        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя типа оборудования" value="${equipmenttype.name}"></td></tr>
+        <tr><th>Имя</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Имя оборудования" value="${equipment.name}"></td></tr>
         <tr>
             <th>Возможности</th>
             <th></th>
@@ -34,7 +34,7 @@
         <c:forEach var="i" begin="0" end="${equipment.offerCount-1}">
             <tr>
                 <td></td>
-                <td><select  class="form-control" name="ablt" ><option value="${equipment.offers[i].name}" selected="selected"> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
+                <td><select  class="form-control" name="ablt" ><option value="${equipment.offers[i].name}" selected="selected">${equipment.offers[i].name}</option> <c:forEach items="${offer}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select>
                 </td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>

@@ -133,12 +133,22 @@ public class ManagerController {
     @RequestMapping(value = "/salon/add", method = RequestMethod.POST)
     public String addPerceptron(@RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
-                                @RequestParam (value = "equip",required = false) List<Equipment> equip,
-                                @RequestParam (value = "works", required = false) List<Worker> works,
+                                @RequestParam (value = "equip",required = false) List<String> equip,
+                                @RequestParam (value = "works", required = false) List<String> works,
                                 @RequestParam ("name") String name, Model model){
         Salon salon = new Salon(name);
-        salon.setEquipments(equip);
-        salon.setWorkers(works);
+        ArrayList<Equipment> equiptrue = new ArrayList<Equipment>();
+        ArrayList<Worker> workstrue = new ArrayList<Worker>();
+        for (String s:equip
+             ) {
+            equiptrue.add(Equipment.parseEquipment(objectService.getObject(s,"equipment")));
+        }
+        for (String s:works
+        ) {
+            workstrue.add(Worker.parseWorker(objectService.getObject(s,"worker")));
+        }
+        salon.setWorkers(workstrue);
+        salon.setEquipments(equiptrue);
         HashMap<Params, String> map= new HashMap<Params, String>();
         map.put(Params.ADDRESS,address);
         map.put(Params.TIME_TO_OFFER,time);
@@ -155,17 +165,27 @@ public class ManagerController {
     public String addPerceptron(@RequestParam ("id") String oldid,
                                 @RequestParam ("address") String address,
                                 @RequestParam ("time") String time,
-                                @RequestParam (value = "equip", required = false) List<Equipment> equip,
-                                @RequestParam (value = "works", required = false) List<Worker> works,
+                                @RequestParam (value = "equip", required = false) List<String> equip,
+                                @RequestParam (value = "works", required = false) List<String> works,
                                 @RequestParam ("name") String name,
                                 @RequestParam ("flag") String flag, Model model){
         Salon salon = new Salon(name);
-        salon.setEquipments(equip);
+        ArrayList<Equipment> equiptrue = new ArrayList<Equipment>();
+        ArrayList<Worker> workstrue = new ArrayList<Worker>();
+        for (String s:equip
+        ) {
+            equiptrue.add(Equipment.parseEquipment(objectService.getObject(s,"equipment")));
+        }
+        for (String s:works
+        ) {
+            workstrue.add(Worker.parseWorker(objectService.getObject(s,"worker")));
+        }
+        salon.setWorkers(workstrue);
+        salon.setEquipments(equiptrue);
         HashMap<Params, String> map= new HashMap<Params, String>();
         map.put(Params.ADDRESS,address);
         map.put(Params.TIME_TO_OFFER,time);
         salon.setParams(map);
-        salon.setWorkers(works);
         Salon oldSalon = Salon.parseSalon(this.objectService.getObjectById(new BigInteger(oldid)));
         ObjectFromDB objectFromDB = salon.prepareObjectFromDB();
         objectFromDB.setId(new BigInteger(oldid));
@@ -228,7 +248,7 @@ public class ManagerController {
             this.objectService.updateObject(objectFromDB,oldequipmentType.getName());
             objectFromDB = this.objectService.getObjectById(new BigInteger(oldid));
             equipmentType = EquipmentType.parseEquipmentType(objectFromDB);
-            model.addAttribute("equip", equipmentType);
+            model.addAttribute("equipt", equipmentType);
         }
         return "showEquipmentType";
     }

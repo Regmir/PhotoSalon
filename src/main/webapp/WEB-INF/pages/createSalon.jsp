@@ -43,7 +43,7 @@
         </tr>
         <tr class="new_worker">
             <td></td>
-            <td><span class="btn2 btn-success plus pull-right">+</span></td>
+            <td><span class="btn btn-success plus pull-right">+</span></td>
         </tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Создать"/>"></th></tr>
     </table>
