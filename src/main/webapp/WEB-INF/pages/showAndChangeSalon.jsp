@@ -36,7 +36,7 @@
         <c:forEach var="i" begin="0" end="${salon.equipmentSize-1}">
             <tr>
                 <td></td>
-                <td><input type="text" min="1" class="form-control" name="equip" value=${salon.equipments[i].name}></td>
+                <td><select  class="form-control" name="ablt" ><option selected=${salon.equipments[i].name}> <c:forEach items="${equips}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>
         </c:forEach>
@@ -51,7 +51,7 @@
         <c:forEach var="i" begin="0" end="${salon.workerSize-1}">
             <tr>
                 <td></td>
-                <td><input type="text" min="1" class="form-control" name="works" value=${salon.workers[i].name}></td>
+                <td><select  class="form-control" name="ablt" ><option selected=${salon.workers[i].name}> <c:forEach items="${works}" var="obj2"> <option value="${obj2.name}">${obj2.name}</option></c:forEach> </select></td>
                 <td><span class="btn btn-danger minus pull-right">&ndash;</span></td>
             </tr>
         </c:forEach>
