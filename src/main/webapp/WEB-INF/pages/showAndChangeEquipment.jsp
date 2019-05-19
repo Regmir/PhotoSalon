@@ -46,7 +46,7 @@
         <tr><td><input name="type" type="hidden" value="${type}"></td></tr>
         <tr>
             <td><select class="form-control" name="flag" ><option selected="selected" value="new" >Сохранить как новый</option><option  value="old">Изменить существующий</option></select></td>
-            <td><input type="hidden" name="id" class="form-control" id="id" value="${salon.id}"></td>
+            <td><input type="hidden" name="id" class="form-control" id="id" value="${equipment.id}"></td>
         </tr>
         <tr><th><input type="submit" class="form-control" value="<spring:message text="Сохранить"/>"></th></tr>
     </table>
