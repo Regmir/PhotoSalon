@@ -52,7 +52,7 @@ public class Offer implements Serializable {
     }
 
     public String[] getParamsName(){
-        Params[] arr = (Params[]) params.entrySet().toArray();
+        Params[] arr = (Params[]) params.keySet().toArray();
         String[] sarr = new String[params.size()];
         int i=0;
         for (Params p: arr
