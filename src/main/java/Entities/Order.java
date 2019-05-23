@@ -5,11 +5,12 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Order implements Serializable {
-    private String name;
+    private String name = "Order #";
     private List<Photo> photos;
     private BigInteger salonId;
     private HashMap<Params, String> params;//тут будем хранить статутс, даты, ещё что понадобиться
@@ -21,6 +22,7 @@ public class Order implements Serializable {
 
     public void setId(BigInteger id) {
         this.id = id;
+        name = "Order #" + id;
     }
 
     public ObjectFromDB prepareObjectFromDB() {
@@ -40,10 +42,29 @@ public class Order implements Serializable {
         return order;
     }
 
-    public Order(String name, BigInteger salonId) {
-        this.name = name;
-        this.salonId = salonId;
+    public Order() {
         this.params = new HashMap<Params, String>();
+        this.photos = new ArrayList<Photo>();
+    }
+
+    public Double getOrderPrice(){
+        double price=0;
+        for (Photo photo:photos){
+            for (Offer offer:photo.appliedOffers){
+                price+=Double.parseDouble(offer.getParams().get(Params.OFFER_PRICE));
+            }
+        }
+        return price;
+    }
+
+    public Double getTimeToOrder(){
+        double time=0;
+        for (Photo photo:photos){
+            for (Offer offer:photo.appliedOffers){
+                time+=Double.parseDouble(offer.getParams().get(Params.TIME_TO_OFFER));
+            }
+        }
+        return time;
     }
 
     public String getName() {

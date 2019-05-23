@@ -5,11 +5,13 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.HashMap;
 
 public class Worker implements Serializable {
     BigInteger salonId;
     String name;
     BigInteger id;
+    private HashMap<Params, String> params;
 
     public ObjectFromDB prepareObjectFromDB() {
         ObjectFromDB objToPersist = new ObjectFromDB();
@@ -30,6 +32,7 @@ public class Worker implements Serializable {
 
     public Worker(String name){
         this.name=name;
+        this.params = new HashMap<Params, String>();
     }
 
     public BigInteger getId() {
@@ -54,5 +57,13 @@ public class Worker implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public HashMap<Params, String> getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap<Params, String> params) {
+        this.params = params;
     }
 }
