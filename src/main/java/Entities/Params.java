@@ -12,5 +12,9 @@ public enum Params implements Serializable {
     EMAIL,
     PASSWORD,
     IS_ADMIN,
-
+    IS_DELIVERY,//доставка или самовывоз
+    ORDER_PRICE,
+    ORDER_TIME,
+    WORKER_STATUS,//True - свободен, false - занят, например
+    WORK_TIME,
 }

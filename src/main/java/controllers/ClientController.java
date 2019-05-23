@@ -1,17 +1,21 @@
 package controllers;
 
-import Entities.Offer;
-import Entities.Order;
-import Entities.Salon;
+import Entities.*;
+import dataBaseManagement.model.ObjectFromDB;
 import dataBaseManagement.service.ObjectService;
-import functionality.ClientMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -24,24 +28,97 @@ public class ClientController {
         this.objectService = objectService;
     }
 
-    @RequestMapping(value = "/client/salons/get", method = RequestMethod.GET)
-    public List<Salon> getSalons(){
-        return ClientMethods.getSalons(objectService.getByType("salon"));
+    @RequestMapping("/createOrder")
+    public String createOrder(Model model) {
+        HashSet<Offer> offers = new HashSet<Offer>();
+        for (ObjectFromDB o : objectService.getByType("salon")) {
+            for (Equipment e : Salon.parseSalon(o).getEquipments()) {
+                offers.addAll(e.getOffers());
+            }
+        }
+        model.addAttribute("offers", new ArrayList<Offer>(offers));//надо будет потом исключить из списка оффера, заказы для которых мы делаем отдельно - печать на майку и т.д.
+        return "createOrder";
     }
 
-    @RequestMapping(value = "/client/offers/get", method = RequestMethod.GET)
-    public List<Offer> getOffers(){
-        return ClientMethods.getOffers(objectService.getByType("offer"));
+    @RequestMapping(value = "/order/addPhotos", method = RequestMethod.POST)
+    public String addPhotos(@RequestParam("photosData") String photosData, Model model) {//изменить тип данных
+        ArrayList<Photo> photos = new ArrayList<Photo>();
+        //парсим данные в Photo
+        model.addAttribute("photos", photos);
+        return "createOrder";
     }
 
-    @RequestMapping(value = "/client/orders/get", method = RequestMethod.GET)
-    public List<Order> getOrders(@RequestParam("clientName") String clientName){
-        return ClientMethods.getOrders(objectService.getObject(clientName, "user"));
+    @RequestMapping(value = "/order/photo/addOffers", method = RequestMethod.POST)
+//наверное не нужен так как это можно сделать прямо в jsp
+    public String addOffers(@RequestParam("photo") Photo photo,
+                            @RequestParam("offers") List<Offer> offers, Model model) {
+        photo.setAppliedOffers(offers);
+        return "createOrder";
     }
 
-    @RequestMapping(value = "/client/orders/change", method = RequestMethod.POST)
-    public List<Order> getOrders(@RequestParam("clientName") String clientName, @RequestParam("orderName") Order order){
-        return ClientMethods.changeOrders(objectService.getObject(clientName, "user"), order);
+    @RequestMapping(value = "/order/add", method = RequestMethod.POST)
+    public String addOrder(@RequestParam("photos") List<Photo> photos,//в jsp надо добавить проверку что списok не должны быть пустым
+                           @RequestParam("address") String address,
+                           @RequestParam("isDelivery") String isDelivery, Model model) {
+        Order order = new Order();
+        order.setPhotos(photos);
+        Double price = order.getOrderPrice();
+        Double time = order.getTimeToOrder();
+        HashMap<Params, String> params = new HashMap<Params, String>();
+        params.put(Params.ADDRESS, address);
+        params.put(Params.IS_DELIVERY, isDelivery);
+        if (isDelivery.equals("True")) {
+            price += Constants.DELIVERY_PRICE;
+            time += Constants.DELIVERY_TIME;
+        }
+        params.put(Params.ORDER_PRICE, price.toString());
+        params.put(Params.ORDER_TIME, time.toString());
+        order.setParams(params);
+        ObjectFromDB objectFromDB = order.prepareObjectFromDB();
+        BigInteger id = this.objectService.addObject(objectFromDB);
+        objectFromDB = this.objectService.getObjectById(id);
+        order = Order.parseOrder(objectFromDB);
+        model.addAttribute("order", order);
+        return "showOrder";
+    }
+
+    @RequestMapping("/show/client/{type}")
+    public String showByType(@PathVariable("type") String type, Model model) {
+        List<ObjectFromDB> object = objectService.getByType(type);
+        model.addAttribute("objects", object);
+        model.addAttribute("type", type);
+        if (type.equals("salon")) {
+            model.addAttribute("name", "Салоны");
+        }
+        if (type.equals("order")) {
+            model.addAttribute("name", "Заказы");
+        }
+        if (type.equals("offer")) {
+            model.addAttribute("name", "Услуги");
+        }
+        return "showObjectsByTypeForClient";
+    }
+
+    @RequestMapping("show/client/objectsfromdbdata/{id}")
+    public String objData(@PathVariable("id") BigInteger id, Model model) {
+        ObjectFromDB objectFromDB = this.objectService.getObjectById(id);
+        if (objectFromDB.getType().equals("salon")) {
+            Salon s = Salon.parseSalon(objectFromDB);
+            List<Equipment> eq = new ArrayList<Equipment>();
+            model.addAttribute("salon", s);
+            return "showSalon";
+        }
+        if (objectFromDB.getType().equals("order")) {
+            Order o = Order.parseOrder(objectFromDB);
+            model.addAttribute("order", o);
+            return "showOrder";
+        }
+        if (objectFromDB.getType().equals("offer")) {
+            Offer o = Offer.parseOffer(objectFromDB);
+            model.addAttribute("of", o);
+            return "showOffer";
+        }
+        return "objectsfromdbdata";
     }
 
 }

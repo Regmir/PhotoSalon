@@ -4,6 +4,7 @@ import dataBaseManagement.model.ObjectFromDB;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class User implements Serializable {
         this.params.put(Params.PASSWORD,password);
         this.params.put(Params.EMAIL,email);
         this.params.put(Params.IS_ADMIN,admin);
+        this.orders = new ArrayList<Order>();
     }
 
     public ObjectFromDB prepareObjectFromDB(){
