@@ -12,7 +12,7 @@
   <link href="resources/css/bootstrap-grid.min.css" rel="stylesheet" >
   <link href="resources/css/bootstrap-reboot.css" rel="stylesheet">
 
-</head>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/08CBBAD7-4CD1-9147-AEAE-65A3F22E52D4/main.js" charset="UTF-8"></script></head>
 <body>
 
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" style="border-bottom: 1px solid #eee;">
@@ -74,42 +74,175 @@
 </div>
 
 <div class="container" id="catalog">
-  <h3 class="m-3 pt-5" style="text-align: center">Каталог</h3>
+  <h3 class="m-3 pt-5" style="text-align: center">Услуги</h3>
   <div class="card-deck mb-3 text-center">
     <div class="card mb-4 box-shadow">
       <div class="card-body">
         <h5 class="card-title">Печать фото</h5>
-        <button type="button" class="btn btn-lg btn-block btn-danger">Выбрать</button>
+        <button type="button" class="btn btn-lg btn-block btn-danger" data-toggle="modal" data-target="#t1">Выбрать</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow">
       <div class="card-body">
         <h5 class="card-title">Фотокниги</h5>
-        <button type="button" class="btn btn-lg btn-block btn-danger">Выбрать</button>
+        <button type="button" class="btn btn-lg btn-block btn-danger" data-toggle="modal" data-target="#t2">Выбрать</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow">
       <div class="card-body">
         <h5 class="card-title">Фото на майку</h5>
-        <button type="button" class="btn btn-lg btn-block btn-danger">Выбрать</button>
+        <button type="button" class="btn btn-lg btn-block btn-danger" data-toggle="modal" data-target="#t3">Выбрать</button>
       </div>
     </div>
     <div class="card mb-4 box-shadow">
       <div class="card-body">
-        <h5 class="card-title">Фото на кожу</h5>
-        <button type="button" class="btn btn-lg btn-block btn-danger">Выбрать</button>
+        <h5 class="card-title">Коврик для мыши</h5>
+        <button type="button" class="btn btn-lg btn-block btn-danger" data-toggle="modal" data-target="#t4">Выбрать</button>
       </div>
     </div>
   </div>
 
 
-  <footer class="pt-4 my-md-5 pt-md-5 border-top">
-    <div class="row">
-      <div class="col-12 col-md">
-
-      </div>
+  <!--Печать фото-->
+  <div class="modal fade" id="t1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" action="URL куда шлем">
+        <div class="modal-header">
+          <h5 class="modal-title">Печать фото</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-check disabled">
+            <div class="form-check disabled">
+              <input class="form-check-input" type="radio" name="type" value="a1">
+              <label class="form-check-label">
+                Формат А1
+              </label>
+            </div>
+            <div class="form-check disabled">
+              <input class="form-check-input" type="radio" name="type" value="a3">
+              <label class="form-check-label">
+                Формат А3
+              </label>
+            </div>
+            <div class="form-check disabled">
+              <input class="form-check-input" type="radio" name="type" value="a4">
+              <label class="form-check-label">
+                Формат А4
+              </label>
+            </div>
+          </div>
+          <br>
+          <label>Ваше фото</label>
+          <input type="file" class="form-control-file" name="file">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Заказать</button>
+        </div>
+      </form>
     </div>
-  </footer>
+  </div>
+
+  <!--    Фотокниги-->
+  <div class="modal fade" id="t2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" action="URL куда шлем">
+        <div class="modal-header">
+          <h5 class="modal-title">Фотокниги</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-check disabled">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="black">
+              <label class="form-check-label">Чернобелый</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="dop">
+              <label class="form-check-label">Дополнительная электронная версия</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" name="obloj">
+              <label class="form-check-label">Мягкая обложка</label>
+            </div>
+          </div>
+          <br>
+          <label>Ваше фото</label>
+          <input type="file" class="form-control-file" name="file">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Заказать</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--    Фото на майку-->
+  <div class="modal fade" id="t3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" action="URL куда шлем">
+        <div class="modal-header">
+          <h5 class="modal-title">Фото на майку</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-check disabled">
+            <label>Размер майки</label>
+            <br>
+            <input class="form-check-input" type="radio" name="type" value="a1">
+            <label class="form-check-label">
+              M
+            </label>
+          </div>
+          <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="type" value="a3">
+            <label class="form-check-label">
+              XL
+            </label>
+          </div>
+          <div class="form-check disabled">
+            <input class="form-check-input" type="radio" name="type" value="a4">
+            <label class="form-check-label">
+              L
+            </label>
+          </div>
+          <br>
+          <label>Ваше фото</label>
+          <input type="file" class="form-control-file" name="file">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Заказать</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--    Коврик для мыши-->
+  <div class="modal fade" id="t4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form class="modal-content" action="URL куда шлем">
+        <div class="modal-header">
+          <h5 class="modal-title">Коврик для мыши</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label>Ваше фото</label>
+          <input type="file" class="form-control-file" name="file">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger">Заказат</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -117,3 +250,4 @@
 
 </body>
 </html>
+
