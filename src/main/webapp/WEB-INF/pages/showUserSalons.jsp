@@ -32,8 +32,8 @@
     </tr>
     <c:forEach items="${salons}" var="obj">
         <tr>
-            <td>${obj.params.get(ADDRESS)}</td>
-            <td>${obj.type}</td>
+            <td>${obj.address}</td>
+            <td>${obj.time}</td>
         </tr>
     </c:forEach>
 </table>

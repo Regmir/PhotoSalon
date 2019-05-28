@@ -56,9 +56,9 @@ public class ClientController {
         return "createOrder";
     }
 
-    @RequestMapping(value = "/{name}/createOrder/{type}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{name}/createOrder/{typeo}", method = RequestMethod.GET)
     public String tempaddorder(@RequestParam("name") String name,
-                            @RequestParam("type") String type, Model model) {
+                            @RequestParam("typeo") String type, Model model) {
         int counter = objectService.getByType("order").size();
         Order order = new Order();
         order.setName("order number "+String.valueOf(counter+1));
@@ -87,14 +87,14 @@ public class ClientController {
         return "userMainPage";
     }
 
-    @RequestMapping(value = "/{name}/cabinet", method = RequestMethod.POST)
+    @RequestMapping(value = "/{name}/cabinet", method = RequestMethod.GET)
     public String tempcabinet(@RequestParam("name") String name,
                                 Model model) {
         model.addAttribute("name",name);
         return "userCabinet";
     }
 
-    @RequestMapping(value = "show/{name}/order", method = RequestMethod.POST)
+    @RequestMapping(value = "show/{name}/order", method = RequestMethod.GET)
     public String temposrorder(@RequestParam("name") String name,
                               Model model) {
         ArrayList<Order> orders = new ArrayList<Order>();
