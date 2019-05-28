@@ -58,6 +58,7 @@ public class ObjectsFromDBController {
     public String login(@RequestParam ("name") String name,
                           @RequestParam ("pass") String pass, Model model){
         ObjectFromDB obj = this.objectService.getObject(name,"user");
+        model.addAttribute("name",name);
         if (obj!=null){
             User user = User.parseUser(obj);
             if (user.authentificate(pass)) {

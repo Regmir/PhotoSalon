@@ -15,6 +15,43 @@ public class Order implements Serializable {
     private BigInteger salonId;
     private HashMap<Params, String> params;//тут будем хранить статутс, даты, ещё что понадобиться
     private BigInteger id;
+    //temp
+    private String type;
+    private String status;
+    private String price;
+    private String usrname;
+
+    public String getUsrname() {
+        return usrname;
+    }
+
+    public void setUsrname(String usrname) {
+        this.usrname = usrname;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public BigInteger getId() {
         return id;
