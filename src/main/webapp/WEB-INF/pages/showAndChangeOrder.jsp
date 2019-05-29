@@ -26,7 +26,7 @@
 
 <form method="POST" action="<c:url value="/order/addOrEdit"/>">
     <table class="table information_json">
-        <tr><th>ID салона</th><td></td><td><select  class="form-control" name="sid" ><option value="${ord.salonId}"selected="selected">${ord.salonId}</option>  <c:forEach items="${equips}" var="obj2"> <option value="${obj2.id}">${obj2.id}</option></c:forEach> </select></td></tr>
+        <tr><th>ID салона</th><td></td><td><select  class="form-control" name="sid" ><option value="${ord.salonId}"selected="selected">${ord.salonId}</option>  <c:forEach items="${salons}" var="obj2"> <option value="${obj2.id}">${obj2.id}</option></c:forEach> </select></td></tr>
         <tr><th>Статус</th><td></td><td><input type="text" class="form-control" name="name" placeholder="Статус" value="${ord.status}"></td></tr>
         <tr>
             <td><input type="hidden" name="id" class="form-control" id="id" value="${ord.id}"></td>
