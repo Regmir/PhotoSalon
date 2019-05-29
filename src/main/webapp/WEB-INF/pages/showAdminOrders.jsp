@@ -30,6 +30,7 @@
         <th>Имя</th>
         <th>Тип</th>
         <th>Статус</th>
+        <th>Салон</th>
         <th>Цена</th>
         <th>Изменить</th>
     </tr>
@@ -38,6 +39,7 @@
             <td>${obj.name}</td>
             <td>${obj.type}</td>
             <td>${obj.status}</td>
+            <td>${obj.salonId}</td>
             <td>${obj.price}</td>
             <td><a href="objectsfromdbdata/${obj.id}" target="_blank">Изменить</a></td>
         </tr>
