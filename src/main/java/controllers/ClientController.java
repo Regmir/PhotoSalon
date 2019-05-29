@@ -106,6 +106,7 @@ public class ClientController {
             if (name.equals("admin")){ orders.add(ord);}
         }
         model.addAttribute("orders",orders);
+        if (name.equals("admin")) return "showAdminOrders";
         return "showUserOrders";
     }
 
