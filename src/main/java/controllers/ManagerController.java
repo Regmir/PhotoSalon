@@ -435,4 +435,17 @@ public class ManagerController {
         return "showWorker";
     }
 
+
+    @RequestMapping(value = "/order/addOrEdit", method = RequestMethod.POST)
+    public String addOrd(@RequestParam ("id") BigInteger id,
+                               @RequestParam ("sid") BigInteger sid,
+                               @RequestParam ("status") String status, Model model){
+        Order ord = Order.parseOrder(objectService.getObjectById(id));
+        ord.setSalonId(sid);
+        ord.setStatus(status);
+        ObjectFromDB objectFromDB = ord.prepareObjectFromDB();
+        objectFromDB.setId(id);
+        this.objectService.updateObject(objectFromDB,ord.getName());
+        return "show/admin/order";
+    }
 }
