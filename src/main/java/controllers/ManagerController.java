@@ -446,6 +446,14 @@ public class ManagerController {
         ObjectFromDB objectFromDB = ord.prepareObjectFromDB();
         objectFromDB.setId(id);
         this.objectService.updateObject(objectFromDB,ord.getName());
-        return "redirect: /show/admin/order";
+        ArrayList<Order> orders = new ArrayList<Order>();
+        List<ObjectFromDB> obj = objectService.getByType("order");
+        for (ObjectFromDB o: obj
+                ) {
+            Order ord1 = Order.parseOrder(o);
+            orders.add(ord1);
+        }
+        model.addAttribute("orders",orders);
+        return "showAdminOrders";
     }
 }
