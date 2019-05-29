@@ -41,7 +41,7 @@
             <td>${obj.status}</td>
             <td>${obj.salonId}</td>
             <td>${obj.price}</td>
-            <td><a href="objectsfromdbdata/${obj.id}" target="_blank">Изменить</a></td>
+            <td><a href="${pageContext.request.contextPath}/show/admin/objectsfromdbdata/${obj.id}" target="_blank">Изменить</a></td>
         </tr>
     </c:forEach>
 </table>
