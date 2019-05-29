@@ -446,6 +446,6 @@ public class ManagerController {
         ObjectFromDB objectFromDB = ord.prepareObjectFromDB();
         objectFromDB.setId(id);
         this.objectService.updateObject(objectFromDB,ord.getName());
-        return "show/admin/order";
+        return "showAdminOrders";
     }
 }
