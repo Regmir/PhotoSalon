@@ -93,11 +93,6 @@ public class ManagerController {
             model.addAttribute("works",w);
             return "showAndChangeSalon";
         }
-        if (objectFromDB.getType().equals("order")) {
-            Order o = Order.parseOrder(objectFromDB);
-            model.addAttribute("order",o);
-            return "showAndChangeorder";
-        }
         if (objectFromDB.getType().equals("worker")) {
             Worker o = Worker.parseWorker(objectFromDB);
             model.addAttribute("work",o);
@@ -118,6 +113,17 @@ public class ManagerController {
             Offer o = Offer.parseOffer(objectFromDB);
             model.addAttribute("of",o);
             return "showAndChangeOffer";
+        }
+        if (objectFromDB.getType().equals("order")) {
+            Order ord = Order.parseOrder(objectFromDB);
+            model.addAttribute("ord",ord);
+            List<Salon> s = new ArrayList<Salon>();
+            for (ObjectFromDB sa:
+                    objectService.getByType("salon")) {
+                s.add(Salon.parseSalon(sa));
+            }
+            model.addAttribute("salons",s);
+            return "showAndChangeOrder";
         }
         return  "objectsfromdbdata";
     }

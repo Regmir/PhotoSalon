@@ -56,6 +56,73 @@ public class ClientController {
         return "createOrder";
     }
 
+    @RequestMapping(value = "/{name}/createOrder/{typeo}", method = RequestMethod.GET)
+    public String tempaddorder(@PathVariable("name") String name,
+                               @PathVariable("typeo") String type, Model model) {
+        int counter = objectService.getByType("order").size();
+        Order order = new Order();
+        order.setName("order number "+String.valueOf(counter+1));
+        order.setSalonId(BigInteger.valueOf(0));
+        order.setStatus("processing");
+        order.setUsrname(name);
+        if (type.equals("tshort")){
+            order.setType("T-Short");
+            order.setPrice("2000");
+        }
+        if (type.equals("book")){
+            order.setType("Photobook");
+            order.setPrice("1500");
+        }
+        if (type.equals("mouse")){
+            order.setType("MousePrint");
+            order.setPrice("500");
+        }
+        if (type.equals("photo")){
+            order.setType("Photo");
+            order.setPrice("150");
+        }
+        ObjectFromDB obj = order.prepareObjectFromDB();
+        model.addAttribute("name",name);
+        this.objectService.addObject(obj);
+        return "userMainPage";
+    }
+
+    @RequestMapping(value = "/{name}/cabinet", method = RequestMethod.GET)
+    public String tempcabinet(@PathVariable("name") String name,
+                                Model model) {
+        model.addAttribute("name",name);
+        return "userCabinet";
+    }
+
+    @RequestMapping(value = "show/{name}/order", method = RequestMethod.GET)
+    public String temposrorder(@PathVariable("name") String name,
+                              Model model) {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        List<ObjectFromDB> obj = objectService.getByType("order");
+        for (ObjectFromDB o: obj
+             ) {
+            Order ord = Order.parseOrder(o);
+            if (name.equals(ord.getUsrname())){ orders.add(ord);}
+            if (name.equals("admin")){ orders.add(ord);}
+        }
+        model.addAttribute("orders",orders);
+        if (name.equals("admin")) return "showAdminOrders";
+        return "showUserOrders";
+    }
+
+    @RequestMapping(value = "/show/user/salon")
+    public String tsalon(Model model) {
+        ArrayList<Salon> salons = new ArrayList<Salon>();
+        List<ObjectFromDB> obj = objectService.getByType("salon");
+        for (ObjectFromDB o: obj
+        ) {
+            Salon ord = Salon.parseSalon(o);
+             salons.add(ord);
+        }
+        model.addAttribute("salons",salons);
+        return "showUserSalons";
+    }
+
     @RequestMapping(value = "/order/add", method = RequestMethod.POST)
     public String addOrder(@RequestParam("photos") List<Photo> photos,//в jsp надо добавить проверку что списok не должны быть пустым
                            @RequestParam("address") String address,
