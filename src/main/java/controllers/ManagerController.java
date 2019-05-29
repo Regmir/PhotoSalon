@@ -120,12 +120,12 @@ public class ManagerController {
             return "showAndChangeOffer";
         }
         if (objectFromDB.getType().equals("order")) {
-            Order o = Order.parseOrder(objectFromDB);
-            model.addAttribute("ord",o);
+            Order ord = Order.parseOrder(objectFromDB);
+            model.addAttribute("ord",ord);
             List<Salon> s = new ArrayList<Salon>();
-            for (ObjectFromDB o:
+            for (ObjectFromDB sa:
                     objectService.getByType("salon")) {
-                s.add(Equipment.parseEquipment(o));
+                s.add(Salon.parseSalon(sa));
             }
             model.addAttribute("salons",s);
             return "showAndChangeOrder";
