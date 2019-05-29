@@ -119,6 +119,17 @@ public class ManagerController {
             model.addAttribute("of",o);
             return "showAndChangeOffer";
         }
+        if (objectFromDB.getType().equals("order")) {
+            Order o = Order.parseOrder(objectFromDB);
+            model.addAttribute("ord",o);
+            List<Salon> s = new ArrayList<Salon>();
+            for (ObjectFromDB o:
+                    objectService.getByType("salon")) {
+                s.add(Equipment.parseEquipment(o));
+            }
+            model.addAttribute("salons",s);
+            return "showAndChangeOrder";
+        }
         return  "objectsfromdbdata";
     }
 
