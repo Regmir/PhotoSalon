@@ -103,6 +103,7 @@ public class ClientController {
              ) {
             Order ord = Order.parseOrder(o);
             if (name.equals(ord.getUsrname())){ orders.add(ord);}
+            if (name.equals("admin")){ orders.add(ord);}
         }
         model.addAttribute("orders",orders);
         return "showUserOrders";
