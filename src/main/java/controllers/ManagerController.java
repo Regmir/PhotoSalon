@@ -93,11 +93,6 @@ public class ManagerController {
             model.addAttribute("works",w);
             return "showAndChangeSalon";
         }
-        if (objectFromDB.getType().equals("order")) {
-            Order o = Order.parseOrder(objectFromDB);
-            model.addAttribute("order",o);
-            return "showAndChangeorder";
-        }
         if (objectFromDB.getType().equals("worker")) {
             Worker o = Worker.parseWorker(objectFromDB);
             model.addAttribute("work",o);
